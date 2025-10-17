@@ -4,6 +4,9 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>CurrencyRates.Clients.Nbp.Contracts</AssemblyName>
+    <RootNamespace>CurrencyRates.Clients.Nbp.Contracts</RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
