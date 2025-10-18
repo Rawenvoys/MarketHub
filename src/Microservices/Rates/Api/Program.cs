@@ -22,13 +22,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", async ([FromServices] INbpApi _nbpApi, [FromServices] ILogger _logger) =>
+app.MapGet("/", async ([FromServices] INbpApi _nbpApi, [FromServices] ILogger<Program> _logger) =>
 {
-    _logger.LogDebug("Start sending request");
-    var response = await _nbpApi.Get("B", "2002-01-02", "2002-03-31");
-    _logger.LogDebug("Response: {tablesCount}", response.Count);
-    foreach(var table in response)
-        _logger.LogInformation("Table number: {no}", table.No);
+    _logger.LogDebug("`../rates`");
 })
 .WithName("Get current rates")
 .WithOpenApi();
