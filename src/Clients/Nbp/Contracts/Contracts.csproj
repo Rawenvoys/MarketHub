@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>CurrencyRates.Clients.Nbp.Contracts</AssemblyName>
+    <RootNamespace>CurrencyRates.Clients.Nbp.Contracts</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Dtos/" />
-  </ItemGroup>
 
 </Project>

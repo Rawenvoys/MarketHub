@@ -1,0 +1,7 @@
+## Log Decyzji Architektonicznych (ADR) 🛠️
+
+| ADR ID | Tytuł | Status | Kontekst | Decyzja | Konsekwencje |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **ADR-001** | Konfiguracja Daty Początkowej Synchronizacji Historycznej | **Zaakceptowana** | Konieczność efektywnego skonfigurowania daty startowej dla pobierania historycznych kursów walut NBP. | Użycie **`appsettings.json`** z sekcją **`"NBP": { "InitialSyncDate": "YYYY-MM-DD" }`** i mapowanie na typ **`DateOnly`** (w kodzie .NET). | **[+]** Zgodność z konwencjami .NET. **[+]** Silne typowanie w kodzie. **[-]** Wymaga obsługi potencjalnego błędu parsowania daty. |
+| **ADR-002** | Wybór Wersji Frameworka .NET | **Zaakceptowana** | Konieczność wyboru stabilnej wersji frameworka .NET, zgodnie z wymaganiem ("NET 8 lub wyższy"), z priorytetem na długoterminowe wsparcie. | Wybór **.NET 8** jako wersji **LTS (Long Term Support)**. | **[+]** Stabilność i 3 lata wsparcia. **[+]** Zgodność z najlepszymi praktykami dla systemów produkcyjnych. **[-]** Brak dostępu do ewentualnych drobnych usprawnień, które pojawią się w .NET 9 (wersja STS). |
+| **ADR-003** | Implementacja Klienta API NBP | **Zaakceptowana** | Konieczność efektywnego i deklaratywnego pobierania danych z zewnętrznego API (NBP). | Użycie biblioteki **Refit** do generowania interfejsu **`INbpApiClient`** (klient HTTP). | **[+]** Znaczne uproszczenie kodu klienta HTTP (brak ręcznej implementacji `HttpClient`). **[+]** Łatwa integracja z DI w .NET 8. **[+]** Lepsza czytelność i utrzymanie. |
