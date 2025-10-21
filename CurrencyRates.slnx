@@ -4,4 +4,9 @@
     <Project Path="src/Clients/Nbp/Client/Client.csproj" />
     <Project Path="src/Clients/Nbp/Contracts/Contracts.csproj" />
   </Folder>
+  <Folder Name="/Microservices/" />
+  <Folder Name="/Microservices/Rates/">
+    <Project Path="src/Microservices/Rates/Api/Api.csproj" />
+    <Project Path="src/Microservices/Rates/Application/Application.csproj" />
+  </Folder>
 </Solution>
