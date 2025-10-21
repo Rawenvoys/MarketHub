@@ -2,6 +2,7 @@ namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
 
 public class Rate : ValueObject
 {
+    public decimal Value { get; init; }
     private Rate(decimal value) 
         => Value = value;
 
@@ -13,7 +14,6 @@ public class Rate : ValueObject
         return new Rate(rate);
     }
 
-    public decimal Value { get; init; }
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

@@ -2,12 +2,21 @@ using CurrencyRates.Microservices.Rates.Domain.ValueObjects;
 
 namespace CurrencyRates.Microservices.Rates.Domain.Entities;
 
-public class Currency : Entity<Guid>
+public class Currency
 {
-    public Currency(Guid id) : base(id)
+    public Guid Id { get; private set; }
+    public Code Code { get; private set; }
+    public Name Name { get; private set; }
+
+    private Currency() { }
+
+    private Currency(Guid id, Code code, Name name)
     {
+        Id = id;
+        Code = code;
+        Name = name;
     }
 
-    public Code Code { get; set; }
-    public Name Name { get; set; }
+    public static Currency Create(Guid id, Code code, Name name)
+        => new(id, code, name);
 }
