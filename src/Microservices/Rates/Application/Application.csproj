@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,16 +6,12 @@
     <AssemblyName>CurrencyRates.Microservices.Rates.Application</AssemblyName>
     <RootNamespace>CurrencyRates.Microservices.Rates.Application</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="RB.SharedKernel.MediatR" Version="0.2.0-beta.1.6" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Commands/" />
-    <Folder Include="Queries/" />
   </ItemGroup>
-
 </Project>
