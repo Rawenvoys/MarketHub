@@ -24,7 +24,7 @@ app.UseHttpsRedirection();
 
 app.MapGet("/", async ([FromServices] INbpApi _nbpApi, [FromServices] ILogger<Program> _logger) =>
 {
-    _logger.LogDebug("`../rates`");
+    _logger.LogDebug("`../`");
 })
 .WithName("Get current rates")
 .WithOpenApi();

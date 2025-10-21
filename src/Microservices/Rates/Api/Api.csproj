@@ -5,11 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>c5e1cc1f-a434-4150-82c1-3edafce9e030</UserSecretsId>
+    <AssemblyName>CurrencyRates.Microservices.Rates.Api</AssemblyName>
+    <RootNamespace>CurrencyRates.Microservices.Rates.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
