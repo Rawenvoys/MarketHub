@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>CurrencyRates.Microservices.Rates.Domain</AssemblyName>
+    <RootNamespace>CurrencyRates.Microservices.Rates.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Exceptions/" />
+    <Folder Include="Services/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RB.SharedKernel" Version="0.2.0-beta.1.6" />
+  </ItemGroup>
+
+</Project>
