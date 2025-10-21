@@ -1,5 +1,3 @@
-using RB.SharedKernel;
-
 namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
 
 public class Rate : ValueObject

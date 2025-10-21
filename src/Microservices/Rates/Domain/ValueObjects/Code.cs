@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using RB.SharedKernel;
-
 namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
 
 public partial class Code : ValueObject
@@ -13,7 +11,6 @@ public partial class Code : ValueObject
     public static Code FromValue(string code)
     {
         string convertedCode = Validate(code);
-
         return new Code(convertedCode);
     }
 
