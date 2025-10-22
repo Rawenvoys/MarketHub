@@ -19,6 +19,9 @@ public class CronExpression : ValueObject
         DayOfWeek = dayOfWeek;
     }
 
+    public override string ToString() 
+        => $"{Seconds} {Minutes} {Hours} {DayOfMonth} {Month} {DayOfWeek}";
+
     public static CronExpression Create(string cronExpression)
     {
         if (string.IsNullOrWhiteSpace(cronExpression))
