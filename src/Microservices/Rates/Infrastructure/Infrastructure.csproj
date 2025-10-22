@@ -18,6 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.10" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="../../../Clients/Nbp/Client/Client.csproj" />
     <ProjectReference Include="../Domain/Domain.csproj" />
   </ItemGroup>
 </Project>

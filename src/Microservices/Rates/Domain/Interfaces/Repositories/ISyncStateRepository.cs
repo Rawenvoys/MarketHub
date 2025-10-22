@@ -1,4 +1,6 @@
-namespace CurrencyRates.Microservices.Rates.Domain.Interfaces.SyncState;
+using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
+
+namespace CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 
 public interface ISyncStateRepository
 {

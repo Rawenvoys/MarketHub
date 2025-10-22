@@ -1,4 +1,4 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces;
+using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
