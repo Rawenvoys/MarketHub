@@ -9,8 +9,11 @@ namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositor
 public class SourceRepository(RatesDbContext ratesDbContext) : ISourceRepository
 {
     private readonly RatesDbContext _ratesDbContext = ratesDbContext;
-    public async Task<IEnumerable<Source>> GetActiveAsync(CancellationToken cancellationToken = default)
-        => await _ratesDbContext.Sources.Where(s => s.Status.Value.Equals(Status.Active.Value)).ToListAsync(cancellationToken);
+    public async Task<IList<Source>> GetActiveAsync(CancellationToken cancellationToken = default)
+    {
+        var activeValue = Status.Active.Value;
+        return [.. (await _ratesDbContext.Sources.ToListAsync(cancellationToken)).Where(s => s.Status.Value == activeValue)];
+    }
 
     public async Task SaveAsync(Source source, CancellationToken cancellationToken = default)
     {

@@ -1,5 +1,6 @@
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Configurations;
+using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
@@ -13,5 +14,6 @@ public class RatesDbContext(DbContextOptions<RatesDbContext> options) : DbContex
     {
         modelBuilder.ApplyConfiguration(new SourceConfiguration());
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Source>().HasData(SourceSeeder.NbpApiDateRangeSource);
     }
 }

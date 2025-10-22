@@ -22,7 +22,7 @@ public class CronExpression : ValueObject
     public override string ToString()
         => $"{Seconds} {Minutes} {Hours} {DayOfMonth} {Month} {DayOfWeek}";
 
-    public static CronExpression Create(string cronExpression)
+    public static CronExpression FromValue(string cronExpression)
     {
         if (string.IsNullOrWhiteSpace(cronExpression))
             throw new ArgumentException("Cron expression cannot be empty");

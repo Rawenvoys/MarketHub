@@ -4,6 +4,7 @@ using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(RatesDbContext))]
-    partial class RatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251022230054_AutogenerateSourceId")]
+    partial class AutogenerateSourceId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Migration
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d07ebbb0-ee4b-4d13-8ef7-8ef007ae77e3"),
+                            Id = new Guid("3f503a06-575c-4c2f-b5a8-ed86753419e9"),
                             CronExpression = "* * 16 3 * *",
                             Name = "Kursy średnie walut obcych – tabela B",
                             Status = 1,

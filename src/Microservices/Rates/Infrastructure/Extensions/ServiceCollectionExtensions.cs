@@ -1,3 +1,4 @@
+using CurrencyRates.Clients.Nbp.Client.Extensions;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
 using CurrencyRates.Microservices.Rates.Infrastructure.Factories;
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPersistance(configuration);
+        services.AddNbpApiClient(configuration);
         services.AddStrategies();
         services.AddFactories();
     }

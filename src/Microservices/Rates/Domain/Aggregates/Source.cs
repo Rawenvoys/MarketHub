@@ -11,10 +11,25 @@ public class Source : IAggregateRoot
     public SyncStrategy SyncStrategy { get; private set; }
     public CronExpression CronExpression { get; private set; }
 
-    public void Inactivate() 
+    private Source()
+    {
+
+    }
+
+    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, CronExpression cronExpression)
+        => new()
+        {
+            Id = id,
+            Name = name,
+            Status = status,
+            SyncStrategy = syncStrategy,
+            CronExpression = cronExpression
+        };
+
+    public void Inactivate()
         => ChangeStatusTo(Status.Inactive);
 
-    public void Activate() 
+    public void Activate()
         => ChangeStatusTo(Status.Active);
 
     private void ChangeStatusTo(Status newStatus)
