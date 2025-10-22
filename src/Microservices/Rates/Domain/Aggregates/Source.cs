@@ -8,7 +8,7 @@ public class Source : IAggregateRoot
     public Guid Id { get; private set; }
     public Name Name { get; private set; }
     public Status Status { get; private set; }
-    public DataFetchStrategy FetchStrategy { get; private set; }
+    public SyncStrategy SyncStrategy { get; private set; }
     public CronExpression CronExpression { get; private set; }
 
     public void Inactivate() 
