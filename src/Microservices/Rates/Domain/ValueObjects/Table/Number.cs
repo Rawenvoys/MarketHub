@@ -1,6 +1,6 @@
 using System;
 
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
 
 public class Number : ValueObject
 {

@@ -9,5 +9,7 @@
     <Project Path="src/Microservices/Rates/Api/Api.csproj" />
     <Project Path="src/Microservices/Rates/Application/Application.csproj" />
     <Project Path="src/Microservices/Rates/Domain/Domain.csproj" />
+    <Project Path="src/Microservices/Rates/Infrastructure/Infrastructure.csproj" />
+    <Project Path="src/Microservices/Rates/Tools/Tools.csproj" />
   </Folder>
 </Solution>

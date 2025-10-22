@@ -2,6 +2,6 @@ namespace CurrencyRates.Clients.Nbp.Client.Options;
 
 public class NbpApiOptions
 {
-    public const string NbpApiClient = nameof(NbpApiClient);
+    public const string NbpApi = nameof(NbpApi);
     public string BaseUri { get; set; } = default!;
 }

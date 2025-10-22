@@ -1,5 +1,4 @@
-
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
 
 public class Name : ValueObject
 {
@@ -11,7 +10,7 @@ public class Name : ValueObject
     public static Name FromValue(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Currency name cannot be empty");
+            throw new ArgumentException("Source name cannot be empty");
 
         return new Name(name);
     }

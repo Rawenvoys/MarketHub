@@ -1,4 +1,4 @@
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
 
 namespace CurrencyRates.Microservices.Rates.Domain.Entities;
 
