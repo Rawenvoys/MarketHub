@@ -1,5 +1,5 @@
 using System.Text.RegularExpressions;
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
 
 public partial class Code : ValueObject
 {

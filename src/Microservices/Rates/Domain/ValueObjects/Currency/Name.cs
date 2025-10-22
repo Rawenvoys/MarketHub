@@ -1,5 +1,4 @@
-
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
 
 public class Name : ValueObject
 {

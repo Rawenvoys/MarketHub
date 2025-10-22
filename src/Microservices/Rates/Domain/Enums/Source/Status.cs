@@ -1,5 +1,5 @@
 using Ardalis.SmartEnum;
-namespace CurrencyRates.Microservices.Rates.Domain.Enums;
+namespace CurrencyRates.Microservices.Rates.Domain.Enums.Source;
 
 public abstract class Status : SmartEnum<Status>
 {

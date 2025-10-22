@@ -1,4 +1,5 @@
-using CurrencyRates.Microservices.Rates.Domain.Enums;
+using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
+using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
 
 namespace CurrencyRates.Microservices.Rates.Domain.Aggregates;
 

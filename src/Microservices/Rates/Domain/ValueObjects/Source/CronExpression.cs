@@ -1,4 +1,4 @@
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
 
 public class CronExpression : ValueObject
 {
