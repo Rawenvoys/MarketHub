@@ -1,10 +1,13 @@
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
 using CurrencyRates.Microservices.Rates.Infrastructure.Factories;
+using CurrencyRates.Microservices.Rates.Infrastructure.Options;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Extensions;
 using CurrencyRates.Microservices.Rates.Infrastructure.Strategies;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace CurrencyRates.Microservices.Rates.Infrastructure.Extensions;
 
