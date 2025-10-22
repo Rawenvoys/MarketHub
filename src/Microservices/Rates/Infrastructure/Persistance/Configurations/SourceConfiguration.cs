@@ -1,5 +1,6 @@
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
+using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,13 +19,12 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
                        .HasMaxLength(255)
                        .IsRequired();
         });
-        builder.OwnsOne(s => s.CronExpression, cronBuilder =>
-            {
-                cronBuilder.Property(c => c.ToString())
-                           .HasColumnName("CronExpression")
-                           .HasMaxLength(50)
-                           .IsRequired();
-            });
+        
+        builder.Property(s => s.CronExpression)
+               .HasConversion<CronExpressionConverter>()
+               .HasColumnName("CronExpression")
+               .HasMaxLength(100)
+               .IsRequired();
 
         builder.Property(s => s.SyncStrategy)
                .HasColumnName("SyncStrategy")

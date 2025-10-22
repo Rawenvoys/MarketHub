@@ -1,7 +1,5 @@
-
-
 using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
-using Type = CurrencyRates.Microservices.Rates.Domain.Enums.Type;
+using Type = CurrencyRates.Microservices.Rates.Domain.Enums.Table.Type;
 
 namespace CurrencyRates.Microservices.Rates.Domain.Aggregates;
 

@@ -3,8 +3,8 @@ namespace CurrencyRates.Microservices.Rates.Domain.Enums.Source;
 
 public abstract class Status : SmartEnum<Status>
 {
-    public readonly Status Inactive = new InactiveStatus(0, nameof(Inactive));
-    public readonly Status Active = new ActiveStatus(1, nameof(Active));
+    public static readonly Status Inactive = new InactiveStatus(0, nameof(Inactive));
+    public static readonly Status Active = new ActiveStatus(1, nameof(Active));
 
     public abstract bool CanTransitionTo(Status next);
 

@@ -10,7 +10,7 @@ public static class App
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Logging.AddApplication();
-        builder.Services.AddApplication();
+        builder.Services.AddApplication(builder.Configuration);
         return builder.Build();
     }
 
