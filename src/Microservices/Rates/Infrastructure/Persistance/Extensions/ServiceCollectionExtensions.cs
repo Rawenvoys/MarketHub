@@ -2,6 +2,7 @@ using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using CurrencyRates.Microservices.Rates.Infrastructure.Options;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositories;
+using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,12 +16,13 @@ public static class ServiceCollectionExtensions
     public static void AddPersistance(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString(RatesDbContext.ConnectionStringName)
-            ?? throw new InvalidOperationException($"Cannot find connection string '{RatesDbContext.ConnectionStringName}'.");
+            ?? throw new InvalidOperationException($"Cannot find connection string '{RatesDbContext.ConnectionStringName}'");
 
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
         services.AddTransient<ISourceRepository, SourceRepository>();
         services.AddRatesCosmos(configuration);
         services.AddTransient<ISyncStateRepository, SyncStateRepository>();
+        services.AddTransient<SyncStateSeeder>();
     }
 
     private static void AddRatesCosmos(this IServiceCollection services, IConfiguration configuration)
@@ -50,7 +52,7 @@ public static class ServiceCollectionExtensions
             var client = serviceProvider.GetRequiredService<CosmosClient>();
 
             if (ratesCosmosOptions.ContainerNames == null || !ratesCosmosOptions.ContainerNames.Contains(containerName))
-                throw new InvalidOperationException($"Container '{containerName}' is not defined in RatesCosmosOptions ContainerNames.");
+                throw new InvalidOperationException($"Container '{containerName}' is not defined in RatesCosmosOptions ContainerNames");
 
             return client.GetDatabase(ratesCosmosOptions.DatabaseId).GetContainer(containerName);
         });
@@ -58,5 +60,5 @@ public static class ServiceCollectionExtensions
 
     private static RatesCosmosOptions GetRatesCosmosOptions(this IServiceProvider serviceProvider)
         => serviceProvider.GetRequiredService<IOptions<RatesCosmosOptions>>().Value
-            ?? throw new InvalidOperationException($"Failed to load required Cosmos DB configuration. Ensure the {RatesCosmosOptions.RatesCosmos} section is correctly defined in appsettings.json and available in the DI container.");
+            ?? throw new InvalidOperationException($"Failed to load required Cosmos DB configuration. Ensure the {RatesCosmosOptions.RatesCosmos} section is correctly defined in appsettings.json and available in the DI container");
 }

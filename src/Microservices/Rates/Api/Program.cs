@@ -2,6 +2,7 @@ using CurrencyRates.Microservices.Rates.Application;
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ var app = App.Build(args);
 using var scope = app.Services.CreateScope();
 var ratesDbContext = scope.ServiceProvider.GetRequiredService<RatesDbContext>();
 ratesDbContext.Database.Migrate();
+var syncStateSeeder = scope.ServiceProvider.GetRequiredService<SyncStateSeeder>();
+await syncStateSeeder.Seed();
 
 //ToDo: Move maps later...
 app.MapGet("/sources", GetActiveSourcesQuery())
@@ -22,6 +25,6 @@ static Func<ISourceRepository, ILogger<Program>, Task<IEnumerable<Source>>> GetA
     => async ([FromServices] _sourceRepository, [FromServices] _logger)
         =>
         {
-            _logger.LogDebug("Get active sources `/sources`");
+            _logger.LogInformation("Get active sources `/sources`");
             return await _sourceRepository.GetActiveAsync();
         };

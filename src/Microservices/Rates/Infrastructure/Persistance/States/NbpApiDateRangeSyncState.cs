@@ -5,9 +5,17 @@ namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
 
 public class NbpApiDateRangeSyncState : ISyncState
 {
-    [JsonProperty(PropertyName = "sourceId")]
+    [JsonProperty(PropertyName = "id")]
     public Guid SourceId { get; set; }
 
-    [JsonProperty(PropertyName = "nextSyncDate")]
-    public DateOnly NextSyncDate { get; set; }
+    [JsonProperty(PropertyName = "archiveSynchronized")]
+    public bool ArchiveSynchronized { get; set; }
+    
+    [JsonProperty(PropertyName = "nextSyncFrom")]
+    public DateOnly NextSyncFrom { get; set; }
+
+    [JsonProperty(PropertyName = "nextSyncTo")]
+    public DateOnly NextSyncTo { get; set; }
+    
+
 }

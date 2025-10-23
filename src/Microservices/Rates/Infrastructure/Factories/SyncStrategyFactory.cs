@@ -15,7 +15,7 @@ public class SyncStrategyFactory(IServiceProvider serviceProvider) : ISyncStrate
         return syncStrategy.Value switch
         {
             var strategy when strategy.Equals(SyncStrategy.NbpApiDateRange.Value) => _serviceProvider.GetRequiredService<NbpApiDateRangeSyncStrategy>(),
-            _ => throw new ArgumentException($"Strategy '{syncStrategy.Value}' not supported or not registered."),
+            _ => throw new ArgumentException($"Strategy '{syncStrategy.Value}' not supported or not registered"),
         };
     }
 }

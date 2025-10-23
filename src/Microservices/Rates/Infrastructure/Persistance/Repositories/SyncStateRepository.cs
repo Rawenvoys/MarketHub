@@ -1,3 +1,4 @@
+using System.Net;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
@@ -12,15 +13,31 @@ public class SyncStateRepository(Func<string, Container> containerFactory, ILogg
     private readonly ILogger<SyncStateRepository> _logger = logger;
     private const string SyncStatesContainerName = "SyncStates";
 
+    //ToDo: Implement ContainerReadItemWrapper
     public async Task<ISyncState> GetAsync(Guid sourceId, CancellationToken cancellationToken)
-        => (await _container.ReadItemAsync<NbpApiDateRangeSyncState>(sourceId.ToString(), new PartitionKey(sourceId.ToString()), cancellationToken: cancellationToken)).Resource;
+    {
+        try
+        {
+            return (await _container.ReadItemAsync<NbpApiDateRangeSyncState>(sourceId.ToString(), new PartitionKey(sourceId.ToString()), cancellationToken: cancellationToken)).Resource;
+        }
+        catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        {
+            _logger.LogWarning("Sync state document not found in CosmosDB for SourceId: {SourceId}", sourceId);
+            return default!;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error reading sync state for {SourceId}", sourceId);
+            throw;
+        }
+    }
 
     public async Task SaveAsync(ISyncState syncState, CancellationToken cancellationToken)
     {
-        if (syncState is not NbpApiDateRangeSyncState)
-            throw new ArgumentException("Provided ISyncState is not a supported NbpApiDateRangeSyncState for this container.");
+        if (syncState is not NbpApiDateRangeSyncState nbpApiDateRangeSyncState)
+            throw new ArgumentException("Provided ISyncState is not a supported NbpApiDateRangeSyncState for this container");
         var partitionKey = new PartitionKey(syncState.SourceId.ToString());
-        var response = await _container.UpsertItemAsync(syncState, partitionKey, cancellationToken: cancellationToken);
-        _logger.LogDebug("[ActivityId: {ActivityId}] - Sync state for {SourceId} saved successfully. Status: {StatusCode}", response.ActivityId, syncState.SourceId, response.StatusCode);
+        var response = await _container.UpsertItemAsync(nbpApiDateRangeSyncState, partitionKey, cancellationToken: cancellationToken);
+        _logger.LogInformation("[ActivityId: {ActivityId}] - Sync state for {SourceId} saved successfully. Status: {StatusCode}", response.ActivityId, nbpApiDateRangeSyncState.SourceId, response.StatusCode);
     }
 }

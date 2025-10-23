@@ -17,12 +17,12 @@ public partial class Code : ValueObject
     private static string Validate(string code)
     {
         if (string.IsNullOrWhiteSpace(code))
-            throw new ArgumentException("Currency code cannot be empty.", nameof(code));
+            throw new ArgumentException("Currency code cannot be empty", nameof(code));
 
         var convertedCode = code.Trim().ToUpperInvariant();
 
         if (convertedCode.Length != 3 || !ThreeUpperLettersRegex().IsMatch(convertedCode))
-            throw new ArgumentException($"Currency code '{code}' is invalid. Currency code must contains only 3 upper letters.", nameof(code));
+            throw new ArgumentException($"Currency code '{code}' is invalid. Currency code must contains only 3 upper letters", nameof(code));
         return convertedCode;
     }
 

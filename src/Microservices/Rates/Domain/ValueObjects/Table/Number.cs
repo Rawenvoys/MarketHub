@@ -12,7 +12,7 @@ public class Number : ValueObject
     public static Number Create(string number)
     {
         if (string.IsNullOrWhiteSpace(number))
-            throw new ArgumentException("Table number cannot be empty.", nameof(number));
+            throw new ArgumentException("Table number cannot be empty", nameof(number));
 
         return new Number(number);
     }

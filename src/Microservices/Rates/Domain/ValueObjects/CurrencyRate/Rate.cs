@@ -9,7 +9,7 @@ public class Rate : ValueObject
     public static Rate FromDecimal(decimal rate)
     {
         if (rate <= 0)
-            throw new ArgumentException("Exchange rate value must be positive.", nameof(rate));
+            throw new ArgumentException("Exchange rate value must be positive", nameof(rate));
 
         return new Rate(rate);
     }
