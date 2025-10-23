@@ -16,8 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands/" />
-    <Folder Include="Intrrfaces/" />
-    <Folder Include="Services/" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Domain/Domain.csproj" />

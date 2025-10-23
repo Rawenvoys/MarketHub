@@ -23,9 +23,9 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
                      .HasMaxLength(255)
                      .IsRequired();
 
-              builder.Property(s => s.CronExpression)
+              builder.Property(s => s.Cron)
                      .HasConversion<CronExpressionConverter>()
-                     .HasColumnName("CronExpression")
+                     .HasColumnName("Cron")
                      .HasMaxLength(100)
                      .IsRequired();
 

@@ -9,21 +9,21 @@ public class Source : IAggregateRoot
     public Name Name { get; private set; }
     public Status Status { get; private set; }
     public SyncStrategy SyncStrategy { get; private set; }
-    public CronExpression CronExpression { get; private set; }
+    public Cron Cron { get; private set; }
 
     private Source()
     {
 
     }
 
-    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, CronExpression cronExpression)
+    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cronExpression)
         => new()
         {
             Id = id,
             Name = name,
             Status = status,
             SyncStrategy = syncStrategy,
-            CronExpression = cronExpression
+            Cron = cronExpression
         };
 
     public void Inactivate()

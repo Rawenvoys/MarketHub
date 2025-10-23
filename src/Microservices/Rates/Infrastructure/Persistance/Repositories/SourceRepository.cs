@@ -15,6 +15,9 @@ public class SourceRepository(RatesDbContext ratesDbContext) : ISourceRepository
         return [.. (await _ratesDbContext.Sources.ToListAsync(cancellationToken)).Where(s => s.Status.Value == activeValue)];
     }
 
+    public async Task<Source?> GetAsync(Guid id, CancellationToken cancellationToken = default) 
+        => await _ratesDbContext.Sources.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
+
     public async Task SaveAsync(Source source, CancellationToken cancellationToken = default)
     {
         _ratesDbContext.Sources.Update(source);
