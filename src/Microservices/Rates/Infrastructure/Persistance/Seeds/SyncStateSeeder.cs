@@ -11,7 +11,7 @@ public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<S
     private readonly ILogger<SyncStateSeeder> _logger = logger;
 
     //ToDo: Implement Merge or Upsert - reduce call to cosmos container to 1 per seed
-    public async Task Seed(CancellationToken cancellationToken = default)
+    public async Task SeedAsync(CancellationToken cancellationToken = default)
     {
         foreach(var syncStateSeed in SyncStateSeeds)
         {

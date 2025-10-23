@@ -12,7 +12,7 @@ using var scope = app.Services.CreateScope();
 var ratesDbContext = scope.ServiceProvider.GetRequiredService<RatesDbContext>();
 ratesDbContext.Database.Migrate();
 var syncStateSeeder = scope.ServiceProvider.GetRequiredService<SyncStateSeeder>();
-await syncStateSeeder.Seed();
+await syncStateSeeder.SeedAsync();
 
 //ToDo: Move maps later...
 app.MapGet("/sources", GetActiveSourcesQuery())

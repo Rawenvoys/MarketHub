@@ -7,12 +7,17 @@
     <RootNamespace>CurrencyRates.Microservices.Rates.Application</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.21" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.21" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.21" />
     <PackageReference Include="RB.SharedKernel.MediatR" Version="0.2.0-beta.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands/" />
+    <Folder Include="Intrrfaces/" />
+    <Folder Include="Services/" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Domain/Domain.csproj" />
