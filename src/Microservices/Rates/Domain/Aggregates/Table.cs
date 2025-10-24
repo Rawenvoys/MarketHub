@@ -31,7 +31,13 @@ public class Table : IAggregateRoot
 
     public void AddCurrencyRates(IEnumerable<CurrencyRate> currencyRates)
     {
-        foreach (var currencyRate in currencyRates) CurrencyRates.Add(currencyRate);
+        foreach (var currencyRate in currencyRates)
+            CurrencyRates.Add(currencyRate);
+    }
+
+    public void SetSource(Source source)
+    {
+        Source = source;
     }
 
 }

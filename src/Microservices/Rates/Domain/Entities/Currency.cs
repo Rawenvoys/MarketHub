@@ -19,6 +19,6 @@ public class Currency
         Name = name;
     }
 
-    public static Currency Create(Guid id, Code code, Name name)
-        => new(id, code, name);
+    public static Currency Create(Code code, Name name)
+        => new(Guid.Empty, code, name);
 }

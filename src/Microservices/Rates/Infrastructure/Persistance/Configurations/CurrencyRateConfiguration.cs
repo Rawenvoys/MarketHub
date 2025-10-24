@@ -20,9 +20,6 @@ public class CurrencyRateConfiguration : IEntityTypeConfiguration<CurrencyRate>
                .HasColumnName("Mid")
                .IsRequired();
 
-        builder.HasIndex(cr => new { cr.TableId, cr.CurrencyId })
-               .IsUnique()
-               .HasDatabaseName("IX_CurrencyRate_TableId_CurrencyId");
 
     }
 }

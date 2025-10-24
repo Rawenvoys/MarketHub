@@ -24,6 +24,16 @@ public class CurrencyRate
         Mid = mid;
     }
 
-    public static CurrencyRate Create(Guid id, Guid tableId, Guid currencyId, Rate mid)
-        => new(id, tableId, currencyId, mid);
+    public static CurrencyRate Create(Guid tableId, Guid currencyId, Rate mid)
+        => new(Guid.Empty, tableId, currencyId, mid);
+
+    public void SetCurrency(Currency currency)
+    {
+        Currency = currency;
+    }
+
+    public void SetTable(Table table)
+    {
+        Table = table;
+    }
 }
