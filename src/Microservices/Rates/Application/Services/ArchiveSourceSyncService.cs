@@ -1,5 +1,6 @@
 using CurrencyRates.Microservices.Rates.Application.Interfaces;
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
+using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
 using Microsoft.Extensions.Logging;
 
@@ -9,11 +10,9 @@ public class ArchiveSourceSyncService(ISyncStrategyFactory strategyFactory, ILog
 {
     private readonly ILogger<ArchiveSourceSyncService> _logger = logger;
     private readonly ISyncStrategyFactory _syncStrategyFactory = strategyFactory;
-    public async Task ExecuteAsync(Source source, CancellationToken cancellationToken = default)
+    public async Task ExecuteAsync(Guid id, string syncStrategy, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Starting archive source sync for SourceId: {SourceId}", source.Id);
-        var strategy = _syncStrategyFactory.GetStrategy(source.SyncStrategy);
-        await strategy.ExecuteAsync(source.Id, cancellationToken);
-        // throw new NotImplementedException();
+        var strategy = _syncStrategyFactory.GetStrategy(SyncStrategy.FromValue(syncStrategy));
+        await strategy.ExecuteAsync(id, cancellationToken);
     }
 }

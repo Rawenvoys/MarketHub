@@ -22,8 +22,9 @@ public static class ServiceCollectionExtensions
 
     public static void AddRecurringJobManager(this IServiceCollection services)
     {
+        services.AddScoped<IArchiveSourceSyncService, ArchiveSourceSyncService>();
         services.AddSingleton<IRecurringJobManager, RecurringJobManager>();
-        services.AddSingleton<ISourceSyncJobManager, SourceSyncJobManager>();
+        services.AddScoped<ISourceSyncJobManager, SourceSyncJobManager>();
         services.AddSingleton<IHostedService, JobManager>();
     }
 

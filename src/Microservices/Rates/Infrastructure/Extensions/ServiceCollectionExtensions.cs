@@ -21,8 +21,8 @@ public static class ServiceCollectionExtensions
     }
 
     private static void AddStrategies(this IServiceCollection services)
-        => services.AddTransient<ISyncStrategy, NbpApiDateRangeSyncStrategy>();
+        => services.AddScoped<NbpApiDateRangeSyncStrategy>();
 
     private static void AddFactories(this IServiceCollection services)
-        => services.AddTransient<ISyncStrategyFactory, SyncStrategyFactory>();
+        => services.AddScoped<ISyncStrategyFactory, SyncStrategyFactory>();
 }

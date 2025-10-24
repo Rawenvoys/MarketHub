@@ -14,10 +14,10 @@ public class SourceSyncJobManager(IRecurringJobManager recurringJobManager) : IS
     public async Task RegisterAsync(Source source, string defaultCronExpression, bool archiveSynchronized)
     {
         string jobId = BuildJobId(source.Id, source.SyncStrategy.Name, archiveSynchronized);
-        if (archiveSynchronized)
-            _recurringJobManager.AddOrUpdate<IActualSourceSyncService>(jobId, ss => ss.ExecuteAsync(source, CancellationToken.None), source.Cron.Expression);
-        else
-            _recurringJobManager.AddOrUpdate<IArchiveSourceSyncService>(jobId, ss => ss.ExecuteAsync(source, CancellationToken.None), defaultCronExpression);
+        // if (archiveSynchronized)
+        //     _recurringJobManager.AddOrUpdate<IActualSourceSyncService>(jobId, ss => ss.ExecuteAsync(source.Id, source.SyncStrategy.Value, CancellationToken.None), source.Cron.Expression);
+        // else
+        _recurringJobManager.AddOrUpdate<IArchiveSourceSyncService>(jobId, ss => ss.ExecuteAsync(source.Id, source.SyncStrategy.Value, CancellationToken.None), defaultCronExpression);
 
         await Task.CompletedTask;
     }

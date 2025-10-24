@@ -4,5 +4,5 @@ namespace CurrencyRates.Microservices.Rates.Application.Interfaces;
 
 public interface ISourceSyncService
 {
-    Task ExecuteAsync(Source source, CancellationToken cancellationToken = default);
+    Task ExecuteAsync(Guid id, string syncStrategy, CancellationToken cancellationToken = default);
 }

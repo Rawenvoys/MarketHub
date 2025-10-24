@@ -28,13 +28,27 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
             throw new InvalidOperationException("");
 
         var currentDate = DateOnly.FromDateTime(DateTime.UtcNow);
+        var fromDate = dateRangeSyncState.NextSyncFrom;
+
         if (!dateRangeSyncState.ArchiveSynchronized)
+        {
             _logger.LogInformation("Synchronize archive data for SourceId: {SourceId}", sourceId);
+            var toDate = GetEndOfQuarterDate(fromDate);
+
+            var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
+            tables?.Select(t => Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId)).ToList().ForEach(async t =>
+            {
+                await _tableRepository.SaveAsync(t, cancellationToken);
+            });
+
+            dateRangeSyncState.NextSyncFrom = toDate > currentDate ? currentDate : toDate.AddDays(1);
+            dateRangeSyncState.ArchiveSynchronized = toDate >= dateRangeSyncState.NextSyncTo;
+            await _syncStateRepository.SaveAsync(dateRangeSyncState, cancellationToken);
+        }
         else
         {
             _logger.LogInformation("Synchronize actual data for SourceId: {SourceId}", sourceId);
 
-            var fromDate = dateRangeSyncState.NextSyncFrom;
             var toDate = currentDate;
 
             var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
@@ -42,8 +56,19 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
             {
                 await _tableRepository.SaveAsync(t, cancellationToken);
             });
+
+            dateRangeSyncState.NextSyncFrom = toDate.AddDays(1);
+            await _syncStateRepository.SaveAsync(dateRangeSyncState, cancellationToken);
         }
 
         _logger.LogInformation("End of NBP date range sync for SourceId: {SourceId}", sourceId);
+    }
+
+
+    private static DateOnly GetEndOfQuarterDate(DateOnly date)
+    {
+        var quarter = (date.Month - 1) / 3 + 1;
+        var lastMonthOfQuarter = quarter * 3;
+        return new DateOnly(date.Year, lastMonthOfQuarter, 1).AddMonths(1).AddDays(-1);
     }
 }
