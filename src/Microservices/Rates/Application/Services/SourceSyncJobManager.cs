@@ -1,4 +1,5 @@
 using CurrencyRates.Microservices.Rates.Application.Interfaces;
+using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
 using Hangfire;
 
@@ -10,16 +11,18 @@ public class SourceSyncJobManager(IRecurringJobManager recurringJobManager) : IS
     private const string Actual = "Actual";
     private readonly IRecurringJobManager _recurringJobManager = recurringJobManager;
 
-    public async Task RegisterAsync(Guid id, string syncStrategyName, string sourceCronExpression, string defaultCronExpression, bool archiveSynchronized)
+    public async Task RegisterAsync(Source source, string defaultCronExpression, bool archiveSynchronized)
     {
-        string jobId = BuildJobId(id, syncStrategyName, archiveSynchronized);
+        string jobId = BuildJobId(source.Id, source.SyncStrategy.Name, archiveSynchronized);
         if (archiveSynchronized)
-            _recurringJobManager.AddOrUpdate<IActualSourceSyncService>(jobId, ss => ss.ExecuteAsync(CancellationToken.None), sourceCronExpression);
-        else 
-            _recurringJobManager.AddOrUpdate<IArchiveSourceSyncService>(jobId, ss => ss.ExecuteAsync(CancellationToken.None), defaultCronExpression);
+            _recurringJobManager.AddOrUpdate<IActualSourceSyncService>(jobId, ss => ss.ExecuteAsync(source, CancellationToken.None), source.Cron.Expression);
+        else
+            _recurringJobManager.AddOrUpdate<IArchiveSourceSyncService>(jobId, ss => ss.ExecuteAsync(source, CancellationToken.None), defaultCronExpression);
+
+        await Task.CompletedTask;
     }
 
-    private static string BuildJobId(Guid id, string syncStrategyName, bool archiveSynchronized) 
+    private static string BuildJobId(Guid id, string syncStrategyName, bool archiveSynchronized)
     {
         var syncModeName = archiveSynchronized ? Actual : Archive;
         var jobId = $"{syncStrategyName}-{syncModeName}Sync-{id}";

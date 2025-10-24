@@ -12,4 +12,17 @@ public class Table : IAggregateRoot
 
     private readonly List<CurrencyRate> _currencies = [];
     public IReadOnlyCollection<CurrencyRate> Currencies => _currencies;
+
+    private Table() { }
+
+    private Table(Type type, Number number, DateOnly effectiveDate)
+    {
+        Id = Guid.NewGuid();
+        Type = type;
+        Number = number;
+        EffectiveDate = effectiveDate;
+    }
+
+    public static Table Create(Type type, Number number, DateOnly effectiveDate)
+        => new(type, number, effectiveDate);
 }

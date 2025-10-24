@@ -4,5 +4,5 @@ namespace CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 
 public interface ITableRepository
 {
-    Task SaveAsync(Table table);
+    Task SaveAsync(Table table, CancellationToken cancellationToken);
 }

@@ -2,6 +2,7 @@ using System.Configuration;
 using CurrencyRates.Microservices.Rates.Application.Interfaces;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace CurrencyRates.Microservices.Rates.Application.Services;
@@ -10,7 +11,7 @@ public class JobManager(ISourceRepository sourceRepository,
                         IConfiguration configuration,
                         ILogger<JobManager> logger,
                         ISyncStateRepository syncStateRepository,
-                        ISourceSyncJobManager sourceSyncJobManager) : IJobManager
+                        ISourceSyncJobManager sourceSyncJobManager) : IHostedService
 {
     private readonly ISourceRepository _sourceRepository = sourceRepository;
     private readonly ISyncStateRepository _syncStateRepository = syncStateRepository;
@@ -20,7 +21,7 @@ public class JobManager(ISourceRepository sourceRepository,
 
     private const string SourceSyncArchiveCronExpressionSectionName = "SourceSyncArchiveCronExpression";
 
-    public async Task InitializeAsync()
+    public async Task StartAsync(CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Start of register source synchronization jobs");
 
@@ -38,9 +39,14 @@ public class JobManager(ISourceRepository sourceRepository,
         {
             _logger.LogInformation("Configure source synchronization job for source: {SourceId}", source.Id);
             var syncState = await _syncStateRepository.GetAsync(source.Id, CancellationToken.None);
-            await _sourceSyncJobManager.RegisterAsync(source.Id, source.SyncStrategy.Name, source.Cron.Expression, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
+            await _sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
         });
 
         _logger.LogInformation("End of register source synchronization jobs");
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,8 +1,11 @@
 using CurrencyRates.Microservices.Rates.Application;
+using CurrencyRates.Microservices.Rates.Application.Interfaces;
+using CurrencyRates.Microservices.Rates.Application.Services;
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,8 +20,18 @@ await syncStateSeeder.SeedAsync();
 //ToDo: Move maps later...
 app.MapGet("/sources", GetActiveSourcesQuery())
    .WithName("Get active sources")
+   .WithTags("Source")
    .WithOpenApi();
 
+
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = []
+});
+
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
 app.Run();
 
 static Func<ISourceRepository, ILogger<Program>, Task<IEnumerable<Source>>> GetActiveSourcesQuery()

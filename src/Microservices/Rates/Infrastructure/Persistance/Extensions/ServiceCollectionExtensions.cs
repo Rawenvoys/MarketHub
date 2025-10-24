@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
         services.AddTransient<ISourceRepository, SourceRepository>();
+        services.AddTransient<ITableRepository, TableRepository>();
         services.AddRatesCosmos(configuration);
         services.AddTransient<ISyncStateRepository, SyncStateRepository>();
         services.AddTransient<SyncStateSeeder>();

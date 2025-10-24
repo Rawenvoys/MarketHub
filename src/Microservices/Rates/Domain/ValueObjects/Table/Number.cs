@@ -9,7 +9,7 @@ public class Number : ValueObject
     private Number(string value)
         => Value = value;
 
-    public static Number Create(string number)
+    public static Number FromValue(string number)
     {
         if (string.IsNullOrWhiteSpace(number))
             throw new ArgumentException("Table number cannot be empty", nameof(number));
