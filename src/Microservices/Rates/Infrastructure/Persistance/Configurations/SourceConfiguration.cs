@@ -1,5 +1,6 @@
 using CurrencyRates.Microservices.Rates.Domain.Aggregates;
 using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
+using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
 using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -12,23 +13,24 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
     {
         builder.ToTable("Source", "rates");
         builder.HasKey(p => p.Id);
-        builder.OwnsOne(p => p.Name, nameBuilder =>
-        {
-            nameBuilder.Property(n => n.Value)
-                       .HasColumnName("Name")
-                       .HasMaxLength(255)
-                       .IsRequired();
-        });
-        
-        builder.Property(s => s.CronExpression)
+        builder.Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+
+        builder.Property(n => n.Name)
+               .HasColumnName("Name")
+               .HasConversion(s => s.Value, s => Name.FromValue(s))
+               .HasMaxLength(255)
+               .IsRequired();
+
+        builder.Property(s => s.Cron)
                .HasConversion<CronExpressionConverter>()
-               .HasColumnName("CronExpression")
+               .HasColumnName("Cron")
                .HasMaxLength(100)
                .IsRequired();
 
         builder.Property(s => s.SyncStrategy)
                .HasColumnName("SyncStrategy")
-               .HasConversion(s => s.Name, s => SyncStrategy.FromValue(s))
+               .HasConversion(s => s.Value, s => SyncStrategy.FromValue(s))
                .HasMaxLength(50)
                .IsRequired();
 

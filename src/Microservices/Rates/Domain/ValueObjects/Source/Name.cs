@@ -4,6 +4,7 @@ public class Name : ValueObject
 {
     public string Value { get; init; }
 
+
     private Name(string value)
         => Value = value;
 

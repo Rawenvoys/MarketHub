@@ -9,12 +9,31 @@ public class Source : IAggregateRoot
     public Name Name { get; private set; }
     public Status Status { get; private set; }
     public SyncStrategy SyncStrategy { get; private set; }
-    public CronExpression CronExpression { get; private set; }
+    public Cron Cron { get; private set; }
 
-    public void Inactivate() 
+    public ICollection<Table> Tables { get; private set; } = [];
+
+    private Source() { }
+
+    public Source(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Name = name;
+        Status = status;
+        SyncStrategy = syncStrategy;
+        Cron = cron;
+    }
+
+    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+        => new(id, name, status, syncStrategy, cron);
+
+    public static Source Create(Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+        => new(Guid.Empty, name, status, syncStrategy, cron);
+
+    public void Inactivate()
         => ChangeStatusTo(Status.Inactive);
 
-    public void Activate() 
+    public void Activate()
         => ChangeStatusTo(Status.Active);
 
     private void ChangeStatusTo(Status newStatus)

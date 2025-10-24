@@ -7,10 +7,10 @@ public static class ServiceCollectionExtensions
     private static readonly Action<IServiceProvider, HttpClient> _configureNbpApiClientAction = (serviceProvider, httpClient) =>
         {
             var nbpApiOptions = serviceProvider.GetRequiredService<IOptions<NbpApiOptions>>().Value
-                ?? throw new InvalidOperationException($"Failed to load required NBP API configuration. Ensure the {NbpApiOptions.NbpApi} section is correctly defined in appsettings.json and available in the DI container.");
+                ?? throw new InvalidOperationException($"Failed to load required NBP API configuration. Ensure the {NbpApiOptions.NbpApi} section is correctly defined in appsettings.json and available in the DI container");
 
             if (string.IsNullOrWhiteSpace(nbpApiOptions.BaseUri))
-                throw new InvalidOperationException("NBP API BaseUri is missing in configuration.");
+                throw new InvalidOperationException("NBP API BaseUri is missing in configuration");
 
             httpClient.BaseAddress = new Uri(nbpApiOptions.BaseUri);
         };

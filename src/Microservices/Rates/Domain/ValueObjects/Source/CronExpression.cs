@@ -1,6 +1,6 @@
 namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
 
-public class CronExpression : ValueObject
+public class Cron : ValueObject
 {
     public string Seconds { get; init; }
     public string Minutes { get; init; }
@@ -9,7 +9,7 @@ public class CronExpression : ValueObject
     public string Month { get; init; }
     public string DayOfWeek { get; init; }
 
-    private CronExpression(string seconds, string minutes, string hours, string dayOfMonth, string month, string dayOfWeek)
+    private Cron(string seconds, string minutes, string hours, string dayOfMonth, string month, string dayOfWeek)
     {
         Seconds = seconds;
         Minutes = minutes;
@@ -19,10 +19,10 @@ public class CronExpression : ValueObject
         DayOfWeek = dayOfWeek;
     }
 
-    public override string ToString()
+    public string Expression
         => $"{Seconds} {Minutes} {Hours} {DayOfMonth} {Month} {DayOfWeek}";
 
-    public static CronExpression Create(string cronExpression)
+    public static Cron FromValue(string cronExpression)
     {
         if (string.IsNullOrWhiteSpace(cronExpression))
             throw new ArgumentException("Cron expression cannot be empty");
@@ -31,7 +31,7 @@ public class CronExpression : ValueObject
         if (cronExpressionParts.Length < 6 || cronExpressionParts.Length > 7)
             throw new ArgumentException("Cron expression must have minimum 6 and maximum 7 parts");
 
-        return new CronExpression(cronExpressionParts[0], cronExpressionParts[1], cronExpressionParts[2], cronExpressionParts[3], cronExpressionParts[4], cronExpressionParts[5]);    
+        return new Cron(cronExpressionParts[0], cronExpressionParts[1], cronExpressionParts[2], cronExpressionParts[3], cronExpressionParts[4], cronExpressionParts[5]);    
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

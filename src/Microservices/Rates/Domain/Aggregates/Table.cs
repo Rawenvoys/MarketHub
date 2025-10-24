@@ -10,6 +10,34 @@ public class Table : IAggregateRoot
     public Number Number { get; private set; }
     public DateOnly EffectiveDate { get; private set; }
 
-    private readonly List<CurrencyRate> _currencies = [];
-    public IReadOnlyCollection<CurrencyRate> Currencies => _currencies;
+    public Guid SourceId { get; set; }
+    public Source Source { get; set; } = null!;
+
+    public ICollection<CurrencyRate> CurrencyRates { get; private set; } = [];
+
+    private Table() { }
+
+    private Table(Guid id, Type type, Guid sourceId, Number number, DateOnly effectiveDate)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Type = type;
+        Number = number;
+        EffectiveDate = effectiveDate;
+        SourceId = sourceId;
+    }
+
+    public static Table Create(Type type, Number number, DateOnly effectiveDate, Guid sourceId)
+        => new(Guid.Empty, type, sourceId, number, effectiveDate);
+
+    public void AddCurrencyRates(IEnumerable<CurrencyRate> currencyRates)
+    {
+        foreach (var currencyRate in currencyRates)
+            CurrencyRates.Add(currencyRate);
+    }
+
+    public void SetSource(Source source)
+    {
+        Source = source;
+    }
+
 }

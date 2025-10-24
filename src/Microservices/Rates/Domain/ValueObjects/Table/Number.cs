@@ -1,5 +1,3 @@
-using System;
-
 namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
 
 public class Number : ValueObject
@@ -9,10 +7,10 @@ public class Number : ValueObject
     private Number(string value)
         => Value = value;
 
-    public static Number Create(string number)
+    public static Number FromValue(string number)
     {
         if (string.IsNullOrWhiteSpace(number))
-            throw new ArgumentException("Table number cannot be empty.", nameof(number));
+            throw new ArgumentException("Table number cannot be empty", nameof(number));
 
         return new Number(number);
     }
