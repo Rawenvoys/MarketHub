@@ -23,8 +23,8 @@ public static class ServiceCollectionExtensions
     public static void AddRecurringJobManager(this IServiceCollection services)
     {
         services.AddSingleton<IRecurringJobManager, RecurringJobManager>();
-        services.AddTransient<ISourceSyncJobManager, SourceSyncJobManager>();
-        services.AddTransient<IHostedService, JobManager>();
+        services.AddSingleton<ISourceSyncJobManager, SourceSyncJobManager>();
+        services.AddSingleton<IHostedService, JobManager>();
     }
 
     public static void AddHangfireWithServer(this IServiceCollection services, IConfiguration configuration)

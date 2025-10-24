@@ -19,15 +19,15 @@ public static class ServiceCollectionExtensions
             ?? throw new InvalidOperationException($"Cannot find connection string '{RatesDbContext.ConnectionStringName}'");
 
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
-        services.AddTransient<ISourceRepository, SourceRepository>();
-        services.AddTransient<ITableRepository, TableRepository>();
+        services.AddScoped<ISourceRepository, SourceRepository>();
+        services.AddScoped<ITableRepository, TableRepository>();
     }
 
     public static void AddRatesCosmos(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddRatesCosmosClient(configuration);
-        services.AddTransient<ISyncStateRepository, SyncStateRepository>();
-        services.AddTransient<SyncStateSeeder>();
+        services.AddScoped<ISyncStateRepository, SyncStateRepository>();
+        services.AddScoped<SyncStateSeeder>();
     }
 
     private static void AddRatesCosmosOptions(this IServiceCollection services, IConfiguration configuration)

@@ -31,7 +31,6 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.Run();
 
 static Func<ISourceRepository, ILogger<Program>, Task<IEnumerable<Source>>> GetActiveSourcesQuery()

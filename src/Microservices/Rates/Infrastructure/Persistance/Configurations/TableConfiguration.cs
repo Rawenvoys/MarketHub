@@ -15,34 +15,19 @@ public class TableConfiguration : IEntityTypeConfiguration<Table>
                .ValueGeneratedOnAdd();
 
         builder.Property(p => p.Type)
-        .HasConversion(s => s.Value, s => TableType.FromValue(s))
+               .HasConversion(s => s.Value, s => TableType.FromValue(s))
                .IsRequired()
                .HasMaxLength(50);
 
         builder.Property(p => p.Number)
                .HasConversion(s => s.Value, s => Domain.ValueObjects.Table.Number.FromValue(s))
                .HasColumnName("Number")
-               .IsRequired()
-               .HasMaxLength(50);
+               .HasMaxLength(50)
+               .IsRequired();
 
         builder.Property(p => p.EffectiveDate)
-               .IsRequired()
-               .HasColumnType("date");
-
-        // Configure currencies as a child collection (assumes Currency is an entity or owned type)
-        builder.HasMany(p => p.CurrencyRates)
-               .WithOne()
-               .HasForeignKey("TableId")
-               .OnDelete(DeleteBehavior.Cascade);
-
-
-        builder.HasOne(p => p.Source)
-               .WithMany(s => s.Tables)
-               .HasForeignKey(p => p.SourceId)
-               .OnDelete(DeleteBehavior.Cascade);
-
-        // Helpful indexes for typical queries
-        builder.HasIndex(p => new { p.Type, p.Number });
-        builder.HasIndex(p => p.EffectiveDate);
+               .HasColumnName("EffectiveDate")
+               .HasColumnType("date")
+               .IsRequired();
     }
 }

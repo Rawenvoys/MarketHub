@@ -6,9 +6,9 @@ public class Currency
 {
     public Guid Id { get; private set; }
     public Code Code { get; private set; }
-    public Name Name { get; private set; }    
-    public virtual ICollection<CurrencyRate> CurrencyRates { get; private set; } = [];
-    
+    public Name Name { get; private set; }
+    public ICollection<CurrencyRate> CurrencyRates { get; set; } = [];
+
 
     private Currency() { }
 

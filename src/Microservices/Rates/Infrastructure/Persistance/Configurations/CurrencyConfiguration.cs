@@ -25,11 +25,5 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
                .HasColumnName("Name")
                .HasMaxLength(255)
                .IsRequired();
-
-        builder.HasIndex(c => c.Code)
-               .IsUnique()
-               .HasDatabaseName("IX_Currency_Code");
-
-        throw new NotImplementedException();
     }
 }

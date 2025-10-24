@@ -6,11 +6,13 @@ public class CurrencyRate
 {
 
     public Guid Id { get; private set; }
-    public Guid TableId { get; private set; }
-    public virtual Table Table { get; private set; } = default!;
-    public Guid CurrencyId { get; private set; }
-    public virtual Currency Currency { get; private set; } = default!;
     public Rate Mid { get; private set; }
+
+    public Guid TableId { get; set; }
+    public Table Table { get; set; } = null!;
+
+    public Guid CurrencyId { get; set; }
+    public Currency Currency { get; set; } = null!;
 
     private CurrencyRate() { }
 
@@ -22,10 +24,6 @@ public class CurrencyRate
         Mid = mid;
     }
 
-    public static CurrencyRate Create(Guid id, Guid tableId, Guid currencyId, Rate rate)
-        => new(id, tableId, currencyId, rate);
-
-    public void SetTable(Table table) => Table = table;
-
-    public void SetCurrency(Currency currency) => Currency = currency;
+    public static CurrencyRate Create(Guid id, Guid tableId, Guid currencyId, Rate mid)
+        => new(id, tableId, currencyId, mid);
 }

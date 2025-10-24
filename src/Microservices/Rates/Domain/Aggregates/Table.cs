@@ -9,9 +9,11 @@ public class Table : IAggregateRoot
     public Type Type { get; private set; }
     public Number Number { get; private set; }
     public DateOnly EffectiveDate { get; private set; }
-    public Guid SourceId { get; private set; }
-    public virtual Source Source { get; private set; } = default!;
-    public virtual ICollection<CurrencyRate> CurrencyRates { get; private set; } = [];
+
+    public Guid SourceId { get; set; }
+    public Source Source { get; set; } = null!;
+
+    public ICollection<CurrencyRate> CurrencyRates { get; private set; } = [];
 
     private Table() { }
 

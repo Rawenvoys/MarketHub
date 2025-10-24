@@ -1,5 +1,3 @@
-using System;
-
 namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
 
 public class Number : ValueObject

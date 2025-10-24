@@ -38,9 +38,5 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
                .HasColumnName("Status")
                .HasConversion(s => s.Value, s => Status.FromValue(s))
                .IsRequired();
-
-        // Helpful indexes for typical queries
-        builder.HasIndex(p => p.Name)
-               .IsUnique();
     }
 }

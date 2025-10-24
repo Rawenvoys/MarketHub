@@ -18,12 +18,12 @@ public class RatesDbContext(DbContextOptions<RatesDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new CurrencyRateConfiguration());
         modelBuilder.ApplyConfiguration(new CurrencyConfiguration());
         modelBuilder.ApplyConfiguration(new SourceConfiguration());
         modelBuilder.ApplyConfiguration(new TableConfiguration());
 
-        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Source>().HasData(SourceSeeder.NbpApiDateRangeSource);
     }
 }

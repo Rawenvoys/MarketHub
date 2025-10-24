@@ -11,7 +11,7 @@ public class Source : IAggregateRoot
     public SyncStrategy SyncStrategy { get; private set; }
     public Cron Cron { get; private set; }
 
-    public virtual ICollection<Table> Tables { get; private set; } = [];
+    public ICollection<Table> Tables { get; private set; } = [];
 
     private Source() { }
 
