@@ -36,28 +36,24 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
         if (!dateRangeSyncState.ArchiveSynchronized)
         {
             var toDate = GetEndOfQuarterDate(fromDate);
-
-            _logger.LogWarning("Synchronize archive data for SourceId: {SourceId}", sourceId);
-            _logger.LogWarning("Get Tables from {fromDate} to {toDate}", fromDate, toDate);
+            _logger.LogWarning("Get Tables from {fromDate} to {toDate} for {SourceId}", fromDate, toDate, sourceId);
             var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
-            if (tables != null)
-            {
-                foreach (var t in tables)
-                {
-                    var table = Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId);
-                    var currencyRates = new List<CurrencyRate>();
-                    foreach (var rate in t.Rates)
-                    {
-                        var currency = Currency.Create(Code.FromValue(rate.Code), Name.FromValue(rate.Currency));
-                        var currencyRate = CurrencyRate.Create(table.Id, currency.Id, Rate.FromDecimal(rate.Mid));
-                        currencyRate.SetCurrency(currency);
-                        currencyRate.SetTable(table);
-                        currencyRates.Add(currencyRate);
-                    }
-                    table.AddCurrencyRates(currencyRates);
 
-                    await _tableRepository.AddAsync(table, cancellationToken);
+            foreach (var t in tables)
+            {
+                var table = Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId);
+                var currencyRates = new List<CurrencyRate>();
+                foreach (var rate in t.Rates)
+                {
+                    var currency = Currency.Create(Code.FromValue(rate.Code), Name.FromValue(rate.Currency));
+                    var currencyRate = CurrencyRate.Create(table.Id, currency.Id, Rate.FromDecimal(rate.Mid));
+                    currencyRate.SetCurrency(currency);
+                    currencyRate.SetTable(table);
+                    currencyRates.Add(currencyRate);
                 }
+                table.AddCurrencyRates(currencyRates);
+
+                await _tableRepository.AddAsync(table, cancellationToken);
             }
 
             dateRangeSyncState.NextSyncFrom = toDate > currentDate ? currentDate : toDate.AddDays(1);
@@ -68,20 +64,20 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
         {
             _logger.LogWarning("Synchronize actual data for SourceId: {SourceId}", sourceId);
 
-            var toDate = currentDate;
+            // var toDate = currentDate;
 
-            var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
-            if (tables != null)
-            {
-                foreach (var t in tables)
-                {
-                    var table = Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId);
-                    await _tableRepository.AddAsync(table, cancellationToken);
-                }
-            }
+            // var tables = _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
+            // if (tables != null)
+            // {
+            //     foreach (var t in tables)
+            //     {
+            //         var table = Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId);
+            //         await _tableRepository.AddAsync(table, cancellationToken);
+            //     }
+            // }
 
-            dateRangeSyncState.NextSyncFrom = toDate.AddDays(1);
-            await _syncStateRepository.SaveAsync(dateRangeSyncState, cancellationToken);
+            // dateRangeSyncState.NextSyncFrom = toDate.AddDays(1);
+            // await _syncStateRepository.SaveAsync(dateRangeSyncState, cancellationToken);
         }
 
         _logger.LogInformation("End of NBP date range sync for SourceId: {SourceId}", sourceId);

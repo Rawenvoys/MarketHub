@@ -25,5 +25,8 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
                .HasColumnName("Name")
                .HasMaxLength(255)
                .IsRequired();
+
+        builder.HasIndex(c => new { c.Code, c.Name })
+               .IsUnique();
     }
 }

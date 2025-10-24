@@ -32,19 +32,19 @@ public class JobManager(IServiceScopeFactory serviceScopeFactory,
         var syncStateRepository = scope.ServiceProvider.GetRequiredService<ISyncStateRepository>();
         var sourceSyncJobManager = scope.ServiceProvider.GetRequiredService<ISourceSyncJobManager>();
 
-        var activeSources = await sourceRepository.GetActiveAsync();
+        var activeSources = await sourceRepository.GetActiveAsync(cancellationToken);
         if (activeSources is null || !activeSources.Any())
         {
             _logger.LogInformation("Cannot register source synchronization job. End of initialization");
             return;
         }
 
-        activeSources.ToList().ForEach(async source =>
+        foreach (var source in activeSources)
         {
             _logger.LogInformation("Configure source synchronization job for source: {SourceId}", source.Id);
             var syncState = await syncStateRepository.GetAsync(source.Id, CancellationToken.None);
             await sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
-        });
+        }
 
         _logger.LogInformation("End of register source synchronization jobs");
     }

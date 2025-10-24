@@ -18,8 +18,7 @@ public class CurrencyRateConfiguration : IEntityTypeConfiguration<CurrencyRate>
         builder.Property(cr => cr.Mid)
                .HasConversion(r => r.Value, r => Rate.FromDecimal(r))
                .HasColumnName("Mid")
+               .HasColumnType("decimal(18, 6)")
                .IsRequired();
-
-
     }
 }

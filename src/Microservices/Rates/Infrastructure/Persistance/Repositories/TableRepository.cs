@@ -14,10 +14,18 @@ public class TableRepository(RatesDbContext ratesDbContext) : ITableRepository
     {
         ArgumentNullException.ThrowIfNull(table);
 
+        var tableExists = await _ratesDbContext.Tables.AnyAsync(t => t.Number == table.Number, cancellationToken);
+        if (tableExists)
+        {
+            return;
+        }
+
         await using var transaction = await _ratesDbContext.Database.BeginTransactionAsync(cancellationToken);
 
         try
         {
+            var allCurrencies = await _ratesDbContext.Currencies.ToListAsync(cancellationToken);
+            var currenciesByCode = allCurrencies.ToDictionary(c => c.Code.Value);
             var processedCurrencies = new Dictionary<string, Currency>();
 
             foreach (var currencyRate in table.CurrencyRates)
@@ -29,10 +37,7 @@ public class TableRepository(RatesDbContext ratesDbContext) : ITableRepository
                 }
                 else
                 {
-                    var dbCurrency = (await _ratesDbContext.Currencies
-                        .ToListAsync(cancellationToken)).FirstOrDefault(c => c.Code.Value == currencyCode);
-
-                    if (dbCurrency != null)
+                    if (currenciesByCode.TryGetValue(currencyCode, out var dbCurrency))
                     {
                         currencyRate.Currency = dbCurrency;
                         processedCurrencies[currencyCode] = dbCurrency;

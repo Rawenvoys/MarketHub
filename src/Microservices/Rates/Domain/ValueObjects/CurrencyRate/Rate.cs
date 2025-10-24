@@ -15,7 +15,6 @@ public class Rate : ValueObject
 
     public static Rate Empty => new(0);
 
-
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
