@@ -38,7 +38,7 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
             var toDate = currentDate;
 
             var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
-            tables?.Select(t => Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate)).ToList().ForEach(async t =>
+            tables?.Select(t => Table.Create(_tableType, Number.FromValue(t.No), t.EffectiveDate, sourceId)).ToList().ForEach(async t =>
             {
                 await _tableRepository.SaveAsync(t, cancellationToken);
             });

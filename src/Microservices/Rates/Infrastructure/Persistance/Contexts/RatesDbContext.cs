@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 
-public class RatesDbContext(DbContextOptions<RatesDbContext> options) : DbContext(options)
+public class RatesDbContext(DbContextOptions<RatesDbContext> options)
+    : DbContext(options)
 {
     public const string ConnectionStringName = "RatesDb";
     public DbSet<Source> Sources { get; set; }

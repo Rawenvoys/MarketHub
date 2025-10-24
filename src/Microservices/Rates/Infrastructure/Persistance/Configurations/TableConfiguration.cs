@@ -30,9 +30,15 @@ public class TableConfiguration : IEntityTypeConfiguration<Table>
                .HasColumnType("date");
 
         // Configure currencies as a child collection (assumes Currency is an entity or owned type)
-        builder.HasMany(p => p.Currencies)
+        builder.HasMany(p => p.CurrencyRates)
                .WithOne()
                .HasForeignKey("TableId")
+               .OnDelete(DeleteBehavior.Cascade);
+
+
+        builder.HasOne(p => p.Source)
+               .WithMany(s => s.Tables)
+               .HasForeignKey(p => p.SourceId)
                .OnDelete(DeleteBehavior.Cascade);
 
         // Helpful indexes for typical queries

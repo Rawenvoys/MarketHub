@@ -11,20 +11,24 @@ public class Source : IAggregateRoot
     public SyncStrategy SyncStrategy { get; private set; }
     public Cron Cron { get; private set; }
 
-    private Source()
-    {
+    public virtual ICollection<Table> Tables { get; private set; } = [];
 
+    private Source() { }
+
+    public Source(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+    {
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
+        Name = name;
+        Status = status;
+        SyncStrategy = syncStrategy;
+        Cron = cron;
     }
 
-    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cronExpression)
-        => new()
-        {
-            Id = id,
-            Name = name,
-            Status = status,
-            SyncStrategy = syncStrategy,
-            Cron = cronExpression
-        };
+    public static Source Create(Guid id, Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+        => new(id, name, status, syncStrategy, cron);
+
+    public static Source Create(Name name, Status status, SyncStrategy syncStrategy, Cron cron)
+        => new(Guid.Empty, name, status, syncStrategy, cron);
 
     public void Inactivate()
         => ChangeStatusTo(Status.Inactive);

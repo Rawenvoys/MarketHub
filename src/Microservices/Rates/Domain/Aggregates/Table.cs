@@ -9,20 +9,27 @@ public class Table : IAggregateRoot
     public Type Type { get; private set; }
     public Number Number { get; private set; }
     public DateOnly EffectiveDate { get; private set; }
-
-    private readonly List<CurrencyRate> _currencies = [];
-    public IReadOnlyCollection<CurrencyRate> Currencies => _currencies;
+    public Guid SourceId { get; private set; }
+    public virtual Source Source { get; private set; } = default!;
+    public virtual ICollection<CurrencyRate> CurrencyRates { get; private set; } = [];
 
     private Table() { }
 
-    private Table(Type type, Number number, DateOnly effectiveDate)
+    private Table(Guid id, Type type, Guid sourceId, Number number, DateOnly effectiveDate)
     {
-        Id = Guid.NewGuid();
+        Id = id == Guid.Empty ? Guid.NewGuid() : id;
         Type = type;
         Number = number;
         EffectiveDate = effectiveDate;
+        SourceId = sourceId;
     }
 
-    public static Table Create(Type type, Number number, DateOnly effectiveDate)
-        => new(type, number, effectiveDate);
+    public static Table Create(Type type, Number number, DateOnly effectiveDate, Guid sourceId)
+        => new(Guid.Empty, type, sourceId, number, effectiveDate);
+
+    public void AddCurrencyRates(IEnumerable<CurrencyRate> currencyRates)
+    {
+        foreach (var currencyRate in currencyRates) CurrencyRates.Add(currencyRate);
+    }
+
 }

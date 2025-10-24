@@ -21,14 +21,13 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
         services.AddTransient<ISourceRepository, SourceRepository>();
         services.AddTransient<ITableRepository, TableRepository>();
-        services.AddRatesCosmos(configuration);
-        services.AddTransient<ISyncStateRepository, SyncStateRepository>();
-        services.AddTransient<SyncStateSeeder>();
     }
 
-    private static void AddRatesCosmos(this IServiceCollection services, IConfiguration configuration)
+    public static void AddRatesCosmos(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddRatesCosmosClient(configuration);
+        services.AddTransient<ISyncStateRepository, SyncStateRepository>();
+        services.AddTransient<SyncStateSeeder>();
     }
 
     private static void AddRatesCosmosOptions(this IServiceCollection services, IConfiguration configuration)

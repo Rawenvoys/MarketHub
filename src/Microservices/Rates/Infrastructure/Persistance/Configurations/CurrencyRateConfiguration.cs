@@ -14,18 +14,24 @@ public class CurrencyRateConfiguration : IEntityTypeConfiguration<CurrencyRate>
         builder.HasKey(cr => cr.Id);
         builder.Property(cr => cr.Id)
                .ValueGeneratedOnAdd();
-
-        builder.Property(cr => cr.Rate)
+        builder.Property(cr => cr.Mid)
                .HasConversion(r => r.Value, r => Rate.FromDecimal(r))
-               .HasColumnName("Rate")
-               .HasColumnType("decimal(18,4)")
+               .HasColumnName("Mid")
                .IsRequired();
 
-        builder.HasOne(cr => cr.Currency)
-               .WithMany(cr =)
-               .HasForeignKey(cr => cr.CurrencyId);
+        builder.HasOne(cr => cr.Table)
+               .WithMany(t => t.CurrencyRates)
+               .HasForeignKey(cr => cr.TableId)
+               .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasIndex(cr => cr.TableId);
-        builder.HasIndex(cr => cr.CurrencyId);
+        builder.HasOne(cr => cr.Currency)
+               .WithMany(c => c.CurrencyRates)
+               .HasForeignKey(cr => cr.CurrencyId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(cr => new { cr.TableId, cr.CurrencyId })
+               .IsUnique()
+               .HasDatabaseName("IX_CurrencyRate_TableId_CurrencyId");
+
     }
 }

@@ -27,8 +27,9 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
                .IsRequired();
 
         builder.HasIndex(c => c.Code)
-               .IsUnique();
-               
+               .IsUnique()
+               .HasDatabaseName("IX_Currency_Code");
+
         throw new NotImplementedException();
     }
 }

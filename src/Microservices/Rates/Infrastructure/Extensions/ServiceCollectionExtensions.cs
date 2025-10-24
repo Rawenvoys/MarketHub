@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddPersistance(configuration);
+        services.AddRatesCosmos(configuration);
         services.AddNbpApiClient(configuration);
         services.AddStrategies();
         services.AddFactories();
