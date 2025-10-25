@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
 using CurrencyRates.Microservices.Rates.Application.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace CurrencyRates.Microservices.Rates.Application;
@@ -11,6 +14,10 @@ public static class App
         var builder = WebApplication.CreateBuilder(args);
         builder.Logging.AddApplication();
         builder.Services.AddApplication(builder.Configuration);
+        builder.Services.Configure<JsonOptions>(options =>
+        {
+            options.SerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        });
         return builder.Build();
     }
 

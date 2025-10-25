@@ -6,6 +6,9 @@ using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using CurrencyRates.Microservices.Rates.Application.Services;
 using CurrencyRates.Microservices.Rates.Application.Interfaces;
 using Microsoft.Extensions.Hosting;
+using RB.SharedKernel.MediatR.Command;
+using RB.SharedKernel.MediatR.Query;
+using System.Reflection;
 
 namespace CurrencyRates.Microservices.Rates.Application.Extensions;
 
@@ -14,6 +17,7 @@ public static class ServiceCollectionExtensions
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddInfrastructure(configuration);
+        services.AddSharedKernelMediatR();
         services.AddHangfireWithServer(configuration);
         services.AddRecurringJobManager();
         services.AddEndpointsApiExplorer();
@@ -51,4 +55,12 @@ public static class ServiceCollectionExtensions
             options.Queues = ["default", "critical"];
         });
     }
+
+
+    public static void AddSharedKernelMediatR(this IServiceCollection services)
+    => services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<ICommandHandler<ICommand>>()
+                            .RegisterServicesFromAssemblyContaining<ICommandHandler<ICommand<ICommandResult>, ICommandResult>>()
+                            .RegisterServicesFromAssemblyContaining<IQueryHandler<IQuery>>()
+                            .RegisterServicesFromAssemblyContaining<IQueryHandler<IQuery<IQueryResult>, IQueryResult>>()
+                            .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 }

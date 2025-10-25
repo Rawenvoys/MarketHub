@@ -43,7 +43,7 @@ public class JobManager(IServiceScopeFactory serviceScopeFactory,
         {
             _logger.LogInformation("Configure source synchronization job for source: {SourceId}", source.Id);
             var syncState = await syncStateRepository.GetAsync(source.Id, CancellationToken.None);
-            await sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
+            // await sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
         }
 
         _logger.LogInformation("End of register source synchronization jobs");
