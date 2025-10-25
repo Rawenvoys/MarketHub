@@ -3,8 +3,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>CurrencyRates.Microservices.Rates.Application</AssemblyName>
-    <RootNamespace>CurrencyRates.Microservices.Rates.Application</RootNamespace>
+    <AssemblyName>MarketHub.Microservices.Rates.Application</AssemblyName>
+    <RootNamespace>MarketHub.Microservices.Rates.Application</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.21" />

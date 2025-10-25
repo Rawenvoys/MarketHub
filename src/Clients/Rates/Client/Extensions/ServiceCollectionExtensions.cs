@@ -1,5 +1,5 @@
-using CurrencyRates.Clients.Rates.Client.Options;
-namespace CurrencyRates.Clients.Rates.Client.Extensions;
+using MarketHub.Clients.Rates.Client.Options;
+namespace MarketHub.Clients.Rates.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {

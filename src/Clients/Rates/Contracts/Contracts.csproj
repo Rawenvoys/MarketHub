@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>CurrencyRates.Clients.Rates.Contracts</AssemblyName>
-    <RootNamespace>CurrencyRates.Clients.Rates.Contracts</RootNamespace>
+    <AssemblyName>MarketHub.Clients.Rates.Contracts</AssemblyName>
+    <RootNamespace>MarketHub.Clients.Rates.Contracts</RootNamespace>
   </PropertyGroup>
 </Project>

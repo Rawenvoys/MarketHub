@@ -1,11 +1,11 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Entities;
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Entities;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositories;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Repositories;
 
 public class TableRepository(RatesDbContext ratesDbContext) : ITableRepository
 {

@@ -1,2 +1,3 @@
-namespace CurrencyRates.Clients.Rates.Client;
+namespace MarketHub.Clients.Rates.Client;
+
 public interface IRatesApi;

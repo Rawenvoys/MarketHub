@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Application.Extensions;
+namespace MarketHub.Microservices.Rates.Application.Extensions;
 
 public static class LoggingBuilderExtensions
 {

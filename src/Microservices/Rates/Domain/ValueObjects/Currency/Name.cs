@@ -1,4 +1,4 @@
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
+namespace MarketHub.Microservices.Rates.Domain.ValueObjects.Currency;
 
 public class Name : ValueObject
 {

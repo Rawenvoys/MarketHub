@@ -1,5 +1,5 @@
 using Ardalis.SmartEnum;
-namespace CurrencyRates.Microservices.Rates.Domain.Enums.Table;
+namespace MarketHub.Microservices.Rates.Domain.Enums.Table;
 
 public sealed class Type : SmartEnum<Type, string>
 {

@@ -1,10 +1,10 @@
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
+using MarketHub.Microservices.Rates.Application.Interfaces;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Factories;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Application.Services;
+namespace MarketHub.Microservices.Rates.Application.Services;
 
 public class ArchiveSourceSyncService(ISyncStrategyFactory strategyFactory, ILogger<ArchiveSourceSyncService> logger) : IArchiveSourceSyncService
 {

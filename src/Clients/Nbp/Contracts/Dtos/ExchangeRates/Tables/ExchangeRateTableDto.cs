@@ -1,4 +1,4 @@
-namespace CurrencyRates.Clients.Nbp.Contracts.Dtos.ExchangeRates.Tables;
+namespace MarketHub.Clients.Nbp.Contracts.Dtos.ExchangeRates.Tables;
 
 public record ExchangeRateTableDto([property: JsonPropertyName("table")] string Table,
                                    [property: JsonPropertyName("no")] string No,

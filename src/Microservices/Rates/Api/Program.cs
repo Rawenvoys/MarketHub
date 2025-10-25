@@ -1,16 +1,16 @@
-using CurrencyRates.Microservices.Rates.Application;
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+using MarketHub.Microservices.Rates.Application;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RB.SharedKernel.MediatR.Extensions;
-using GetLatestRatesQuery = CurrencyRates.Microservices.Rates.Application.Queries.GetLatestRates.Query;
-using GetLatestRatesResult = CurrencyRates.Microservices.Rates.Application.Queries.GetLatestRates.Result;
+using GetLatestRatesQuery = MarketHub.Microservices.Rates.Application.Queries.GetLatestRates.Query;
+using GetLatestRatesResult = MarketHub.Microservices.Rates.Application.Queries.GetLatestRates.Result;
 
 var app = App.Build(args);
 

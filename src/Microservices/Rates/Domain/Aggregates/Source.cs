@@ -1,7 +1,7 @@
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Source;
 
-namespace CurrencyRates.Microservices.Rates.Domain.Aggregates;
+namespace MarketHub.Microservices.Rates.Domain.Aggregates;
 
 public class Source : IAggregateRoot
 {

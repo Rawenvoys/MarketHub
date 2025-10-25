@@ -1,9 +1,9 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.States;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.States;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 
 public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<SyncStateSeeder> logger)
 {
@@ -13,7 +13,7 @@ public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<S
     //ToDo: Implement Merge or Upsert - reduce call to cosmos container to 1 per seed
     public async Task SeedAsync(CancellationToken cancellationToken = default)
     {
-        foreach(var syncStateSeed in SyncStateSeeds)
+        foreach (var syncStateSeed in SyncStateSeeds)
         {
             _logger.LogInformation("Start seeding sync state for SourceId: {SourceId}", syncStateSeed.SourceId);
 

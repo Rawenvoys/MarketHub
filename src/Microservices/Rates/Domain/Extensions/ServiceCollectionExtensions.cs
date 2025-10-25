@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-namespace CurrencyRates.Microservices.Rates.Domain.Extensions;
+namespace MarketHub.Microservices.Rates.Domain.Extensions;
 
 public static class ServiceCollectionExtensions
 {

@@ -1,10 +1,10 @@
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
-using CurrencyRates.Microservices.Rates.Infrastructure.Strategies;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Factories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Strategies;
+using MarketHub.Microservices.Rates.Infrastructure.Strategies;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Factories;
+namespace MarketHub.Microservices.Rates.Infrastructure.Factories;
 
 public class SyncStrategyFactory(IServiceProvider serviceProvider) : ISyncStrategyFactory
 {

@@ -1,9 +1,9 @@
 using System;
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Source;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 
 public static class SourceSeeder
 {

@@ -1,8 +1,8 @@
-using CurrencyRates.Clients.Rates.Contracts.Dtos.LatestCurrencyRates;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Clients.Rates.Contracts.Dtos.LatestCurrencyRates;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
 using RB.SharedKernel.MediatR.Query;
 
-namespace CurrencyRates.Microservices.Rates.Application.Queries.GetLatestRates;
+namespace MarketHub.Microservices.Rates.Application.Queries.GetLatestRates;
 
 public class Handler(ITableRepository tableRepository) : IQueryHandler<Query, Result>
 {

@@ -1,6 +1,6 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
+using MarketHub.Microservices.Rates.Domain.Interfaces.States;
 
-namespace CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
+namespace MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
 
 public interface ISyncStateRepository
 {

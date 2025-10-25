@@ -1,6 +1,6 @@
 
 
-namespace CurrencyRates.Clients.Nbp.Client.Extensions;
+namespace MarketHub.Clients.Nbp.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
             httpClient.BaseAddress = new Uri(nbpApiOptions.BaseUri);
         };
 
-    private static void AddNbpApiOptions(this IServiceCollection services, IConfiguration configuration) 
+    private static void AddNbpApiOptions(this IServiceCollection services, IConfiguration configuration)
         => services.AddOptions<NbpApiOptions>()
                    .Bind(configuration.GetSection(NbpApiOptions.NbpApi));
 

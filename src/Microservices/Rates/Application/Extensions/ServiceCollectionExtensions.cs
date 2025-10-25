@@ -1,16 +1,16 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using CurrencyRates.Microservices.Rates.Infrastructure.Extensions;
+using MarketHub.Microservices.Rates.Infrastructure.Extensions;
 using Hangfire;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
-using CurrencyRates.Microservices.Rates.Application.Services;
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using MarketHub.Microservices.Rates.Application.Services;
+using MarketHub.Microservices.Rates.Application.Interfaces;
 using Microsoft.Extensions.Hosting;
 using RB.SharedKernel.MediatR.Command;
 using RB.SharedKernel.MediatR.Query;
 using System.Reflection;
 
-namespace CurrencyRates.Microservices.Rates.Application.Extensions;
+namespace MarketHub.Microservices.Rates.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {

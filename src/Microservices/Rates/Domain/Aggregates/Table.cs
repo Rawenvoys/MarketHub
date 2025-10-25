@@ -1,7 +1,7 @@
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
-using Type = CurrencyRates.Microservices.Rates.Domain.Enums.Table.Type;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Table;
+using Type = MarketHub.Microservices.Rates.Domain.Enums.Table.Type;
 
-namespace CurrencyRates.Microservices.Rates.Domain.Aggregates;
+namespace MarketHub.Microservices.Rates.Domain.Aggregates;
 
 public class Table : IAggregateRoot
 {

@@ -1,12 +1,12 @@
 using System.Configuration;
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Application.Interfaces;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Application.Services;
+namespace MarketHub.Microservices.Rates.Application.Services;
 
 public class JobManager(IServiceScopeFactory serviceScopeFactory,
                         IConfiguration configuration,

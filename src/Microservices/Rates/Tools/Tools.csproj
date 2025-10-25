@@ -4,8 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>CurrencyRates.Microservices.Rates.Tools</AssemblyName>
-    <RootNamespace>CurrencyRates.Microservices.Rates.Tools</RootNamespace>
+    <AssemblyName>MarketHub.Microservices.Rates.Tools</AssemblyName>
+    <RootNamespace>MarketHub.Microservices.Rates.Tools</RootNamespace>
     <UserSecretsId>153128c7-4000-4989-9721-63f359f276f6</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>

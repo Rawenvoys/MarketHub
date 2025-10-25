@@ -1,8 +1,8 @@
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Application.Interfaces;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
 using Hangfire;
 
-namespace CurrencyRates.Microservices.Rates.Application.Services;
+namespace MarketHub.Microservices.Rates.Application.Services;
 
 public class SourceSyncJobManager(IRecurringJobManager recurringJobManager) : ISourceSyncJobManager
 {

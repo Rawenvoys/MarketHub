@@ -1,16 +1,16 @@
-using CurrencyRates.Clients.Nbp.Client;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
-using TableType = CurrencyRates.Microservices.Rates.Domain.Enums.Table.Type;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
+using MarketHub.Clients.Nbp.Client;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Strategies;
+using TableType = MarketHub.Microservices.Rates.Domain.Enums.Table.Type;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.States;
 using Microsoft.Extensions.Logging;
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
-using CurrencyRates.Microservices.Rates.Domain.Entities;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Table;
+using MarketHub.Microservices.Rates.Domain.Entities;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Currency;
+using MarketHub.Microservices.Rates.Domain.ValueObjects;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Strategies;
+namespace MarketHub.Microservices.Rates.Infrastructure.Strategies;
 
 public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRangeSyncStrategy> logger, ISyncStateRepository syncStateRepository, ITableRepository tableRepository)
     : ISyncStrategy

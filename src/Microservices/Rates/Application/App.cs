@@ -1,11 +1,11 @@
 using System.Text.Json.Serialization;
-using CurrencyRates.Microservices.Rates.Application.Extensions;
+using MarketHub.Microservices.Rates.Application.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CurrencyRates.Microservices.Rates.Application;
+namespace MarketHub.Microservices.Rates.Application;
 
 public static class App
 {

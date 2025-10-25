@@ -1,4 +1,4 @@
 using RB.SharedKernel.MediatR.Query;
-namespace CurrencyRates.Microservices.Rates.Application.Queries.GetLatestRates;
+namespace MarketHub.Microservices.Rates.Application.Queries.GetLatestRates;
 
 public record Query : IQuery<Result>;

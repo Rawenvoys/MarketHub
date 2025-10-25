@@ -1,4 +1,4 @@
-namespace CurrencyRates.Clients.Nbp.Client.Options;
+namespace MarketHub.Clients.Nbp.Client.Options;
 
 public class NbpApiOptions
 {

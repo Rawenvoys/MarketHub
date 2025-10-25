@@ -1,6 +1,6 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
 
-namespace CurrencyRates.Microservices.Rates.Domain.Entities;
+namespace MarketHub.Microservices.Rates.Domain.Entities;
 
 public class CurrencyRate
 {

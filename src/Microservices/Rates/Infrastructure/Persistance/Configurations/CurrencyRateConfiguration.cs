@@ -1,10 +1,10 @@
 using System.Runtime.ConstrainedExecution;
-using CurrencyRates.Microservices.Rates.Domain.Entities;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+using MarketHub.Microservices.Rates.Domain.Entities;
+using MarketHub.Microservices.Rates.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Configurations;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Configurations;
 
 public class CurrencyRateConfiguration : IEntityTypeConfiguration<CurrencyRate>
 {

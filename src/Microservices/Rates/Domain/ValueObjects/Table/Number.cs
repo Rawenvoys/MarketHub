@@ -1,4 +1,4 @@
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Table;
+namespace MarketHub.Microservices.Rates.Domain.ValueObjects.Table;
 
 public class Number : ValueObject
 {

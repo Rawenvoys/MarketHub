@@ -1,3 +1,3 @@
 global using RB.SharedKernel;
-global using CurrencyRates.Microservices.Rates.Domain.Entities;
-global using CurrencyRates.Microservices.Rates.Domain.ValueObjects;
+global using MarketHub.Microservices.Rates.Domain.Entities;
+global using MarketHub.Microservices.Rates.Domain.ValueObjects;

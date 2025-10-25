@@ -1,4 +1,4 @@
-namespace CurrencyRates.Clients.Rates.Client.Options;
+namespace MarketHub.Clients.Rates.Client.Options;
 
 public class RatesApiOptions
 {

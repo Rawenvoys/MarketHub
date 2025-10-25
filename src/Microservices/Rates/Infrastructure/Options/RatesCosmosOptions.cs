@@ -1,6 +1,6 @@
 using System;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Options;
+namespace MarketHub.Microservices.Rates.Infrastructure.Options;
 
 public class RatesCosmosOptions
 {
