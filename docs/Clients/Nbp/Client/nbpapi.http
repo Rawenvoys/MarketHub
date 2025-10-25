@@ -1,4 +1,4 @@
-GET https://api.nbp.pl/api/exchangerates/tables/B/2002-01-01/2002-03-31?format=json
+GET https://api.nbp.pl/api/exchangerates/tables/B/2002-01-02/2002-03-31?format=json
 Accept: application/json
 ###
 
@@ -6,7 +6,11 @@ GET https://api.nbp.pl/api/exchangerates/tables/B/2002-04-01/2002-06-30?format=j
 Accept: application/json
 ###
 
-GET https://api.nbp.pl/api/exchangerates/tables/B/2002-07-01/2002-09-30?format=json
+GET https://api.nbp.pl/api/exchangerates/tables/B/2009-01-01/2009-03-31?format=json
+Accept: application/json
+###
+
+2-09-30?format=json
 Accept: application/json
 ###
 

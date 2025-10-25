@@ -37,7 +37,7 @@ public class NbpApiDateRangeSyncStrategy(INbpApi nbpApi, ILogger<NbpApiDateRange
         {
             var toDate = GetEndOfQuarterDate(fromDate);
             _logger.LogWarning("Get Tables from {fromDate} to {toDate} for {SourceId}", fromDate, toDate, sourceId);
-            var tables = await _nbpApi.Get(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
+            var tables = await _nbpApi.GetAsync(_tableType, fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), cancellationToken);
 
             foreach (var t in tables)
             {

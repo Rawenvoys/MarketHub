@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/Apps/" />
-  <Folder Name="/Apps/CurrencyPortal/" />
+  <Folder Name="/Apps/CurrencyPortal/">
+    <Project Path="src/Apps/CurrencyPortal/Web/Web.csproj" />
+  </Folder>
   <Folder Name="/Clients/" />
   <Folder Name="/Clients/Nbp/">
     <Project Path="src/Clients/Nbp/Client/Client.csproj" />

@@ -23,7 +23,7 @@ await syncStateSeeder.SeedAsync();
 //ToDo: Move maps later...
 app.MapGet("/", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) => Results.Ok(await _mediator.SendQueryAsync(new GetLatestRatesQuery())))
    .WithName("Get latest currency rates")
-   .WithTags("Rates")
+   .WithTags("CurrencyRates")
    .WithOpenApi();
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
