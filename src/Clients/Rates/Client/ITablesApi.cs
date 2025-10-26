@@ -4,6 +4,6 @@ namespace MarketHub.Clients.Rates.Client;
 
 public interface ITablesApi
 {
-    [Get("/")]
+    [Get("")]
     Task<CurrencyRateTableDto> GetLastTableAsync(CancellationToken cancellationToken);
 }

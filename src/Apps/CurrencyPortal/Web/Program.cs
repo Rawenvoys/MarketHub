@@ -1,23 +1,15 @@
-
-
-
-
 using MarketHub.Apps.CurrencyPortal.Web.Layout;
-using MarketHub.Clients.Nbp.Client.Extensions;
+using MarketHub.Clients.Rates.Client.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-
-
-// Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-
+                .AddInteractiveServerComponents();
 builder.Services.AddBlazorBootstrap();
-builder.Services.AddNbpApiClient(builder.Configuration);
+builder.Services.AddRatesApiClient(builder.Configuration);
 
 var app = builder.Build();
 
@@ -36,6 +28,5 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-// .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
 app.Run();

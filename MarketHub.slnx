@@ -2,7 +2,6 @@
     <Folder Name="/Apps/" />
     <Folder Name="/Apps/CurrencyPortal/">
         <Project Path="src/Apps/CurrencyPortal/Web/Web.csproj" />
-        <Project Path="src/Apps/CurrencyPortal/Web-WebAssembly-NotWorking/Web-WebAssembly-NotWorking.csproj" />
     </Folder>
     <Folder Name="/Clients/" />
     <Folder Name="/Clients/Nbp/">

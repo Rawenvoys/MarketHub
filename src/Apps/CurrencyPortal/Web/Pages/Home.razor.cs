@@ -1,6 +1,6 @@
 using BlazorBootstrap;
-using MarketHub.Clients.Nbp.Client;
-using MarketHub.Clients.Nbp.Contracts.Dtos.ExchangeRates.Tables;
+using MarketHub.Clients.Rates.Client;
+using MarketHub.Clients.Rates.Contracts.Dtos.LatestCurrencyRates;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 
@@ -9,34 +9,50 @@ namespace MarketHub.Apps.CurrencyPortal.Web.Pages;
 public partial class Home
 {
     [Inject]
-    public INbpApi NbpApi { get; set; } = default!;
+    public IRatesApi RatesApi { get; set; } = default!;
 
     [Inject]
     public ILogger<Home> Logger { get; set; } = default!;
 
-    public DateOnly FromDate { get; set; } = default!;
-    public DateOnly ToDate { get; set; } = default!;
+    [Inject]
+    protected PreloadService PreloadService { get; set; } = default!;
+
+    private List<CurrencyRateDto>? currencyRates;
+
+    public string TableNumber { get; set; } = string.Empty;
 
 
-    public List<ExchangeRateTableDto> ExchangeRateTables { get; set; } = default!;
+    public bool DisplayCurrencyRates => currencyRates != null && currencyRates.Any();
 
-    public string? LoadingMessage { get; set; } = "Loading...";
-
-    public bool DisplayLoading => !string.IsNullOrWhiteSpace(LoadingMessage);
-
-
+    private Grid<CurrencyRateDto> currencyRatesGrid = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        FromDate = DateOnly.Parse("2002-01-02");
-        ToDate = DateOnly.Parse("2002-03-31");
-        // Logger.LogWarning("START: FromDate {FromDate} ToDate {ToDate}", FromDate.ToString(), ToDate.ToString());
+        try
+        {
+            currencyRates = new List<CurrencyRateDto>();
+            var currencyRateTable = await RatesApi.GetLastTableAsync(default);
+            if (currencyRateTable != null)
+            {
+                Logger.LogInformation("Successfully fetched currency rates for table {TableNumber}.", currencyRateTable.Number);
+                TableNumber = $"{currencyRateTable.Number} - {currencyRateTable.EffectiveDate}";
+                if (currencyRateTable.Rates == null)
+                    return;
 
-        var result = await NbpApi.GetAsync("B", FromDate.ToShortDateString(), ToDate.ToShortDateString(), default);
-        // Logger.LogWarning("ExchangeRateTableDataProvider API call {json}", json);
-        ExchangeRateTables = [.. result];
-        // Logger.LogWarning("END: FromDate {FromDate} ToDate {ToDate}", FromDate.ToString(), ToDate.ToString());
-        LoadingMessage = null;
+                foreach (var currencyRate in currencyRateTable.Rates)
+                {
+                    Logger.LogInformation("Add `{CurrencyCode} - {CurrencyName}", currencyRate.Code, currencyRate.Name);
+                    currencyRates!.Add(currencyRate);
+                }
+
+                await currencyRatesGrid.RefreshDataAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error fetching currency rates.");
+            // Optionally, handle the error more gracefully, e.g., display a message to the user. For now, we'll just log it and proceed with an empty list.
+        }
     }
 
 }

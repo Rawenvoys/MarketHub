@@ -16,6 +16,6 @@
         <Folder Include="Components/" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="../../../Clients/Nbp/Client/Client.csproj" />
+        <ProjectReference Include="../../../Clients/Rates/Client/Client.csproj" />
     </ItemGroup>
 </Project>
