@@ -17,20 +17,42 @@ public partial class Home
     [Inject]
     protected PreloadService PreloadService { get; set; } = default!;
 
-    private List<CurrencyRateDto> currencyRates = [];
+    private List<CurrencyRateDto>? currencyRates;
+
+    public string TableNumber { get; set; } = string.Empty;
 
 
+    public bool DisplayCurrencyRates => currencyRates != null && currencyRates.Any();
 
-    public bool DisplayCurrencyRates => currencyRates.Count != 0;
-
-
+    private Grid<CurrencyRateDto> currencyRatesGrid = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.LogWarning("[{DateTime}] [Home] - Start `OnInitializedAsync`", DateTime.UtcNow);
-        var currencyRateTable = await RatesApi.GetLastTableAsync(default);
-        // currencyRates = currencyRateTable?.Rates.ToList() ?? [];
-        Logger.LogWarning("[{DateTime}] [Home] - Finished `OnInitializedAsync` with data: {CurrencyRates}", DateTime.UtcNow, JsonConvert.SerializeObject(currencyRateTable));
+        try
+        {
+            currencyRates = new List<CurrencyRateDto>();
+            var currencyRateTable = await RatesApi.GetLastTableAsync(default);
+            if (currencyRateTable != null)
+            {
+                Logger.LogInformation("Successfully fetched currency rates for table {TableNumber}.", currencyRateTable.Number);
+                TableNumber = $"{currencyRateTable.Number} - {currencyRateTable.EffectiveDate}";
+                if (currencyRateTable.Rates == null)
+                    return;
+
+                foreach (var currencyRate in currencyRateTable.Rates)
+                {
+                    Logger.LogInformation("Add `{CurrencyCode} - {CurrencyName}", currencyRate.Code, currencyRate.Name);
+                    currencyRates!.Add(currencyRate);
+                }
+
+                await currencyRatesGrid.RefreshDataAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error fetching currency rates.");
+            // Optionally, handle the error more gracefully, e.g., display a message to the user. For now, we'll just log it and proceed with an empty list.
+        }
     }
 
 }

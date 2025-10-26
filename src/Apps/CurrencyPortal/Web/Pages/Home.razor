@@ -5,15 +5,11 @@
 
 <PageTitle>Currency Portal</PageTitle>
 
-<div class="row">
-    <div class="col-2" />
-    <div class="col-2">
-        <Grid TItem="CurrencyRateDto" AllowFiltering="true" AllowPaging="true" AllowSorting="true" AllowSelection="true"
-            Class="table table-hover table-bordered table-striped" PageSize="5" Responsive="true" Data="currencyRates">
-            <GridColumn TItem="CurrencyRateDto" HeaderText="Name" PropertyName="Name"></GridColumn>
-            <GridColumn TItem="CurrencyRateDto" HeaderText="Code" PropertyName="Code"></GridColumn>
-            <GridColumn TItem="CurrencyRateDto" HeaderText="Rate" PropertyName="Rate"></GridColumn>
-        </Grid>
-    </div>
-    <div class="col-2" />
-</div>
+<h1>@tableTitle</h1>
+<Grid @ref="currencyRatesGrid" TItem="CurrencyRateDto" AllowFiltering="true" AllowPaging="true" AllowSorting="true"
+    AllowSelection="true" Class="table table-hover table-bordered table-striped" PageSize="25" Responsive="true"
+    Data="currencyRates">
+    <GridColumn TItem="CurrencyRateDto" HeaderText="Name" PropertyName="Name">@context.Name</GridColumn>
+    <GridColumn TItem="CurrencyRateDto" HeaderText="Code" PropertyName="Code">@context.Code</GridColumn>
+    <GridColumn TItem="CurrencyRateDto" HeaderText="Rate" PropertyName="Rate">@context.Rate</GridColumn>
+</Grid>
