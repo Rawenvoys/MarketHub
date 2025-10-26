@@ -1,6 +1,7 @@
 using MarketHub.Microservices.Rates.Domain.Aggregates;
 using MarketHub.Microservices.Rates.Domain.Enums.Source;
 using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Source;
 using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,20 @@ public class SourceRepository(RatesDbContext ratesDbContext) : ISourceRepository
     {
         var allSources = await _ratesDbContext.Sources.ToListAsync(cancellationToken);
         var activeSources = allSources.Where(s => s.Status == Status.Active).ToList();
+        return activeSources;
+    }
+
+    public async Task<IList<Source>> GetActiveWithMetaAsync(CancellationToken cancellationToken = default)
+    {
+        var allSources = await _ratesDbContext.Sources.Include(s => s.Tables).ToListAsync(cancellationToken);
+        var activeSources = allSources.Where(s => s.Status == Status.Active).ToList();
+        foreach (var source in activeSources)
+        {
+            var startYear = source.Tables.Min(t => t.EffectiveDate);
+            var endYear = source.Tables.Max(t => t.EffectiveDate);
+            var timeframe = Timeframe.Create(Year.FromValue(startYear.Year), Year.FromValue(endYear.Year), Month.FromDateOnly(startYear), Month.FromDateOnly(endYear));
+            source.SetTimeframe(timeframe);
+        }
         return activeSources;
     }
 

@@ -38,5 +38,7 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
                .HasColumnName("Status")
                .HasConversion(s => s.Value, s => Status.FromValue(s))
                .IsRequired();
+
+        builder.Ignore(s => s.Timeframe);
     }
 }

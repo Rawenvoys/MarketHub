@@ -34,10 +34,4 @@ public class Table : IAggregateRoot
         foreach (var currencyRate in currencyRates)
             CurrencyRates.Add(currencyRate);
     }
-
-    public void SetSource(Source source)
-    {
-        Source = source;
-    }
-
 }

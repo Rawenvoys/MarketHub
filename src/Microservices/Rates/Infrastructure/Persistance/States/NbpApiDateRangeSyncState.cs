@@ -11,11 +11,11 @@ public class NbpApiDateRangeSyncState : ISyncState
     [JsonProperty(PropertyName = "archiveSynchronized")]
     public bool ArchiveSynchronized { get; set; }
 
-    [JsonProperty(PropertyName = "nextSyncFrom")]
-    public DateOnly NextSyncFrom { get; set; }
+    [JsonProperty(PropertyName = "nextSyncAt")]
+    public DateOnly NextSyncAt { get; set; }
 
-    [JsonProperty(PropertyName = "nextSyncTo")]
-    public DateOnly NextSyncTo { get; set; }
+    [JsonProperty(PropertyName = "createdAt")]
+    public DateOnly CreatedAt { get; set; }
 
 
 }

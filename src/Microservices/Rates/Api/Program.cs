@@ -6,8 +6,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RB.SharedKernel.MediatR.Extensions;
-using GetLatestRatesQuery = MarketHub.Microservices.Rates.Application.Queries.GetLatestRates.Query;
-using GetLatestRatesResult = MarketHub.Microservices.Rates.Application.Queries.GetLatestRates.Result;
+using GetLastTableQuery = MarketHub.Microservices.Rates.Application.Queries.GetLastTable.Query;
+using GetLatestRatesResult = MarketHub.Microservices.Rates.Application.Queries.GetLastTable.Result;
+using GetMetaQuery = MarketHub.Microservices.Rates.Application.Queries.GetMeta.Query;
+using GetMetaResult = MarketHub.Microservices.Rates.Application.Queries.GetMeta.Result;
+
+
 
 var app = App.Build(args);
 
@@ -21,17 +25,30 @@ await syncStateSeeder.SeedAsync();
 app.UseRouting();
 
 //ToDo: Move maps later...
-app.MapGet("/", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) =>
+app.MapGet("/tables/last", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) =>
 {
-    var result = await _mediator.SendQueryAsync(new GetLatestRatesQuery());
-    if (result == null || result.CurrencyRateTable == null)
+    var result = await _mediator.SendQueryAsync(new GetLastTableQuery());
+    if (result == null || result.Table == null)
         return Results.NotFound();
-    return Results.Ok(result.CurrencyRateTable);
+    return Results.Ok(result.Table);
 })
    .Produces<GetLatestRatesResult>(StatusCodes.Status200OK, "application/json")
    .Produces(StatusCodes.Status404NotFound)
-   .WithTags("CurrencyRates")
+   .WithTags("Table")
    .WithOpenApi();
+
+
+app.MapGet("/meta", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) =>
+{
+    var result = await _mediator.SendQueryAsync(new GetMetaQuery());
+    if (result == null || result.Meta == null)
+        return Results.NotFound();
+    return Results.Ok(result.Meta);
+})
+.Produces<GetMetaResult>(StatusCodes.Status200OK, "application/json")
+.Produces(StatusCodes.Status404NotFound)
+.WithTags("CurrencyRates")
+.WithOpenApi();
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {

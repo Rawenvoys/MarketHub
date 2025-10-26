@@ -25,8 +25,6 @@ public class JobManager(IServiceScopeFactory serviceScopeFactory,
         var sourceSyncArchiveCronExpression = _configuration.GetSection(SourceSyncArchiveCronExpressionSectionName)?.Value
             ?? throw new ConfigurationErrorsException($"Cannot find value for '{SourceSyncArchiveCronExpressionSectionName}' in configuration");
 
-
-
         using var scope = _serviceScopeFactory.CreateScope();
         var sourceRepository = scope.ServiceProvider.GetRequiredService<ISourceRepository>();
         var syncStateRepository = scope.ServiceProvider.GetRequiredService<ISyncStateRepository>();
@@ -43,7 +41,7 @@ public class JobManager(IServiceScopeFactory serviceScopeFactory,
         {
             _logger.LogInformation("Configure source synchronization job for source: {SourceId}", source.Id);
             var syncState = await syncStateRepository.GetAsync(source.Id, CancellationToken.None);
-            // await sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
+            await sourceSyncJobManager.RegisterAsync(source, sourceSyncArchiveCronExpression, syncState.ArchiveSynchronized);
         }
 
         _logger.LogInformation("End of register source synchronization jobs");
@@ -51,6 +49,7 @@ public class JobManager(IServiceScopeFactory serviceScopeFactory,
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("");
+        return Task.CompletedTask;
     }
 }

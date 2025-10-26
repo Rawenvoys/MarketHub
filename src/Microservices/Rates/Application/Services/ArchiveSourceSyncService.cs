@@ -13,6 +13,9 @@ public class ArchiveSourceSyncService(ISyncStrategyFactory strategyFactory, ILog
     [DisableConcurrentExecution(10 * 60)]
     public async Task ExecuteAsync(Guid id, string syncStrategy, CancellationToken cancellationToken = default)
     {
+        DateTime utcNow = DateTime.UtcNow;
+        _logger.LogInformation("[{ExecutionDateTime}]: Resolve Archive Strategy for SourceId: {SourceId}", utcNow.ToString("yyyy-MM-dd hh:ss"), id);
+
         var strategy = _syncStrategyFactory.GetStrategy(SyncStrategy.FromValue(syncStrategy));
         await strategy.ExecuteAsync(id, cancellationToken);
     }

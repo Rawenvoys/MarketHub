@@ -1,8 +1,8 @@
 using BlazorBootstrap;
 using MarketHub.Clients.Rates.Client;
-using MarketHub.Clients.Rates.Contracts.Dtos.LatestCurrencyRates;
+using MarketHub.Clients.Rates.Contracts.Dtos.GetLastTable;
 using Microsoft.AspNetCore.Components;
-using Newtonsoft.Json;
+using BlazorBootstrap.Components;
 
 namespace MarketHub.Apps.CurrencyPortal.Web.Pages;
 
@@ -14,45 +14,65 @@ public partial class Home
     [Inject]
     public ILogger<Home> Logger { get; set; } = default!;
 
-    [Inject]
-    protected PreloadService PreloadService { get; set; } = default!;
+    private List<CurrencyRateDto> currencyRates = [];
 
-    private List<CurrencyRateDto>? currencyRates;
-
-    public string TableNumber { get; set; } = string.Empty;
-
-
-    public bool DisplayCurrencyRates => currencyRates != null && currencyRates.Any();
+    private string tableTitle = default!;
 
     private Grid<CurrencyRateDto> currencyRatesGrid = default!;
+
+    private Guid selectedSourceId = default!;
+    private int selectedYear = default!;
+    private int selectedMonth = default!;
+
+    private IList<SelectOption<Guid>> sourceOptions = [];
+    private IList<SelectOption<int>> yearOptions = [];
+    private readonly IList<SelectOption<int>> monthOptions = [
+        new SelectOption<int>(1, "January"),
+        new SelectOption<int>(2, "February"),
+        new SelectOption<int>(3, "March"),
+        new SelectOption<int>(4, "April"),
+        new SelectOption<int>(5, "May"),
+        new SelectOption<int>(6, "June"),
+        new SelectOption<int>(7, "July"),
+        new SelectOption<int>(8, "August"),
+        new SelectOption<int>(9, "September"),
+        new SelectOption<int>(10, "October"),
+        new SelectOption<int>(11, "November"),
+        new SelectOption<int>(12, "December")
+    ];
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            currencyRates = new List<CurrencyRateDto>();
+            var meta = await RatesApi.GetMetaAsync(default);
+            var currentMeta = meta.Sources.OrderByDescending(s => s.Timeframe.EndYear).ThenBy(s => s.Timeframe.EndMonth).FirstOrDefault();
+            if (currentMeta is null) //No configuration. Inform user.
+                return;
+
+            selectedSourceId = currentMeta.Id;
+            selectedYear = currentMeta.Timeframe.EndYear;
+            selectedMonth = currentMeta.Timeframe.EndMonth;
+
+            //Get tables in month
             var currencyRateTable = await RatesApi.GetLastTableAsync(default);
-            if (currencyRateTable != null)
-            {
-                Logger.LogInformation("Successfully fetched currency rates for table {TableNumber}.", currencyRateTable.Number);
-                TableNumber = $"{currencyRateTable.Number} - {currencyRateTable.EffectiveDate}";
-                if (currencyRateTable.Rates == null)
-                    return;
+            if (currencyRateTable is null)
+                return;
 
-                foreach (var currencyRate in currencyRateTable.Rates)
-                {
-                    Logger.LogInformation("Add `{CurrencyCode} - {CurrencyName}", currencyRate.Code, currencyRate.Name);
-                    currencyRates!.Add(currencyRate);
-                }
+            tableTitle = $"Tabela zr {currencyRateTable.Number} z dnia {currencyRateTable.EffectiveDate:yyyy-MM-dd}";
+            if (currencyRateTable.Rates is null || !currencyRateTable.Rates.Any())
+                return;
 
-                await currencyRatesGrid.RefreshDataAsync();
-            }
+            currencyRates.Clear();
+            currencyRates!.AddRange(currencyRateTable.Rates);
+            await currencyRatesGrid.RefreshDataAsync();
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error fetching currency rates.");
-            // Optionally, handle the error more gracefully, e.g., display a message to the user. For now, we'll just log it and proceed with an empty list.
         }
     }
-
 }
+
+
+public record SelectOption<T>(T Id, string Text);

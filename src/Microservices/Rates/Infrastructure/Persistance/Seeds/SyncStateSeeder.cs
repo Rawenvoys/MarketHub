@@ -30,8 +30,8 @@ public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<S
         => new NbpApiDateRangeSyncState()
         {
             SourceId = Guid.Parse("d07ebbb0-ee4b-4d13-8ef7-8ef007ae77e3"),
-            NextSyncFrom = DateOnly.Parse("2002-01-02"),
-            NextSyncTo = DateOnly.FromDateTime(DateTime.UtcNow),
+            NextSyncAt = DateOnly.Parse("2002-01-02"),
+            CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow),
             ArchiveSynchronized = false
         };
 

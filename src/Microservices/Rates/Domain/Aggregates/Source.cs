@@ -10,8 +10,9 @@ public class Source : IAggregateRoot
     public Status Status { get; private set; }
     public SyncStrategy SyncStrategy { get; private set; }
     public Cron Cron { get; private set; }
-
     public ICollection<Table> Tables { get; private set; } = [];
+
+    public Timeframe Timeframe { get; private set; } = null!;
 
     private Source() { }
 
@@ -42,4 +43,7 @@ public class Source : IAggregateRoot
             throw new InvalidOperationException($"Cannot change status of source from {Status.Name} to {newStatus.Name}");
         Status = newStatus;
     }
+
+    public void SetTimeframe(Timeframe timeframe)
+        => Timeframe = timeframe;
 }

@@ -1,7 +1,5 @@
-using System.Text.Json;
 using MarketHub.Microservices.Rates.Application.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -14,7 +12,7 @@ public static class App
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Logging.AddApplication();
-        
+
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddControllers()
         .AddJsonOptions(options =>
