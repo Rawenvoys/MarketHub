@@ -1,10 +1,10 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Entities;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Configurations;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Entities;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Configurations;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Microsoft.EntityFrameworkCore;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
 
 public class RatesDbContext(DbContextOptions<RatesDbContext> options)
     : DbContext(options)

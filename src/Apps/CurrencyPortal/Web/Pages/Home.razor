@@ -1,0 +1,35 @@
+﻿@page "/"
+@namespace MarketHub.Apps.CurrencyPortal.Web.Pages
+
+@using MarketHub.Clients.Rates.Contracts.Dtos.GetLastTable
+
+<PageTitle>Currency Portal</PageTitle>
+
+
+<div class="row" hidden>
+    <div class="col-3">
+    </div>
+    <div class="col-3">
+    </div>
+    <div class="col-3">
+        <select @bind="selectedMonth" class="form-select">
+            @foreach (var month in monthOptions)
+            {
+                <option value="@month.Id">@month.Text</option>
+            }
+        </select>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h2><i>@tableTitle</i></h2>
+        <Grid @ref="currencyRatesGrid" TItem="CurrencyRateDto" Class="table table-hover table-bordered table-striped"
+            PageSize="25" Responsive="true" Data="currencyRates">
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Name" PropertyName="Name">@context.Name</GridColumn>
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Code" PropertyName="Code">@context.Code</GridColumn>
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Rate" PropertyName="Rate">@context.Rate</GridColumn>
+        </Grid>
+    </div>
+</div>

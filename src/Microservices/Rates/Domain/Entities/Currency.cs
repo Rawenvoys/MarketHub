@@ -1,6 +1,6 @@
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Currency;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Currency;
 
-namespace CurrencyRates.Microservices.Rates.Domain.Entities;
+namespace MarketHub.Microservices.Rates.Domain.Entities;
 
 public class Currency
 {

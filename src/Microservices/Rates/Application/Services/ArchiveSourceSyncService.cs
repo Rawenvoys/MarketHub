@@ -1,10 +1,10 @@
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
+using MarketHub.Microservices.Rates.Application.Interfaces;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Factories;
 using Hangfire;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Application.Services;
+namespace MarketHub.Microservices.Rates.Application.Services;
 
 public class ArchiveSourceSyncService(ISyncStrategyFactory strategyFactory, ILogger<ArchiveSourceSyncService> logger) : IArchiveSourceSyncService
 {
@@ -13,6 +13,9 @@ public class ArchiveSourceSyncService(ISyncStrategyFactory strategyFactory, ILog
     [DisableConcurrentExecution(10 * 60)]
     public async Task ExecuteAsync(Guid id, string syncStrategy, CancellationToken cancellationToken = default)
     {
+        DateTime utcNow = DateTime.UtcNow;
+        _logger.LogInformation("[{ExecutionDateTime}]: Resolve Archive Strategy for SourceId: {SourceId}", utcNow.ToString("yyyy-MM-dd hh:ss"), id);
+
         var strategy = _syncStrategyFactory.GetStrategy(SyncStrategy.FromValue(syncStrategy));
         await strategy.ExecuteAsync(id, cancellationToken);
     }

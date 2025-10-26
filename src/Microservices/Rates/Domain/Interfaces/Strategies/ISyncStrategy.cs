@@ -1,4 +1,4 @@
-namespace CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
+namespace MarketHub.Microservices.Rates.Domain.Interfaces.Strategies;
 
 public interface ISyncStrategy
 {

@@ -1,11 +1,11 @@
 using System.Net;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.States;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.States;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositories;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Repositories;
 
 public class SyncStateRepository(Func<string, Container> containerFactory, ILogger<SyncStateRepository> logger) : ISyncStateRepository
 {

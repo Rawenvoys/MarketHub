@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>MarketHub.Apps.CurrencyPortal.Web</AssemblyName>
+        <RootNamespace>MarketHub.Apps.CurrencyPortal.Web</RootNamespace>
+        <UserSecretsId>adbd1ac2-d1ca-4b39-bc2c-f7949312c0b3</UserSecretsId>
+        <ScopedCssEnable>true</ScopedCssEnable>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Blazor.Bootstrap" Version="3.4.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Components/" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../../../Clients/Rates/Client/Client.csproj" />
+    </ItemGroup>
+</Project>

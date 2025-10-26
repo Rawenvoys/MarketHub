@@ -1,4 +1,4 @@
-﻿using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Extensions;
+﻿using MarketHub.Microservices.Rates.Infrastructure.Persistance.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

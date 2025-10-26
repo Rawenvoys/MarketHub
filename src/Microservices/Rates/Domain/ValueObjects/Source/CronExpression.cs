@@ -1,4 +1,4 @@
-namespace CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
+namespace MarketHub.Microservices.Rates.Domain.ValueObjects.Source;
 
 public class Cron : ValueObject
 {
@@ -26,12 +26,12 @@ public class Cron : ValueObject
     {
         if (string.IsNullOrWhiteSpace(cronExpression))
             throw new ArgumentException("Cron expression cannot be empty");
-            
+
         var cronExpressionParts = cronExpression.Trim().Split(' ');
         if (cronExpressionParts.Length < 6 || cronExpressionParts.Length > 7)
             throw new ArgumentException("Cron expression must have minimum 6 and maximum 7 parts");
 
-        return new Cron(cronExpressionParts[0], cronExpressionParts[1], cronExpressionParts[2], cronExpressionParts[3], cronExpressionParts[4], cronExpressionParts[5]);    
+        return new Cron(cronExpressionParts[0], cronExpressionParts[1], cronExpressionParts[2], cronExpressionParts[3], cronExpressionParts[4], cronExpressionParts[5]);
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

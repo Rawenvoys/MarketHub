@@ -1,11 +1,11 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Enums.Source;
-using CurrencyRates.Microservices.Rates.Domain.ValueObjects.Source;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Converters;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Enums.Source;
+using MarketHub.Microservices.Rates.Domain.ValueObjects.Source;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Configurations;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Configurations;
 
 public class SourceConfiguration : IEntityTypeConfiguration<Source>
 {
@@ -38,5 +38,7 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
                .HasColumnName("Status")
                .HasConversion(s => s.Value, s => Status.FromValue(s))
                .IsRequired();
+
+        builder.Ignore(s => s.Timeframe);
     }
 }

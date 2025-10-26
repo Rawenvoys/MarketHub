@@ -1,5 +1,5 @@
 using Ardalis.SmartEnum;
-namespace CurrencyRates.Microservices.Rates.Domain.Enums.Source;
+namespace MarketHub.Microservices.Rates.Domain.Enums.Source;
 
 public abstract class Status : SmartEnum<Status>
 {
@@ -12,7 +12,7 @@ public abstract class Status : SmartEnum<Status>
 
     private sealed class InactiveStatus(int value, string name) : Status(value, name)
     {
-        public override bool CanTransitionTo(Status next) 
+        public override bool CanTransitionTo(Status next)
             => next.Equals(Active);
     }
 

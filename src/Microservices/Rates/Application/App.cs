@@ -1,8 +1,10 @@
-using CurrencyRates.Microservices.Rates.Application.Extensions;
+using MarketHub.Microservices.Rates.Application.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
-namespace CurrencyRates.Microservices.Rates.Application;
+namespace MarketHub.Microservices.Rates.Application;
 
 public static class App
 {
@@ -10,7 +12,23 @@ public static class App
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Logging.AddApplication();
+
         builder.Services.AddApplication(builder.Configuration);
+        builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        });
+
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Rates API",
+                Version = "v1"
+            });
+        });
         return builder.Build();
     }
 

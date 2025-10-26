@@ -1,15 +1,15 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Options;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Repositories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Infrastructure.Options;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Repositories;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Extensions;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -19,6 +19,9 @@ public static class ServiceCollectionExtensions
             ?? throw new InvalidOperationException($"Cannot find connection string '{RatesDbContext.ConnectionStringName}'");
 
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
+        // services.AddDbContext<RatesDbContext>(options
+        //     => options.UseSqlite($"Data Source={Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Rates.db")}"));
+
         services.AddScoped<ISourceRepository, SourceRepository>();
         services.AddScoped<ITableRepository, TableRepository>();
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Migrations
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class MigrateDb : Migration

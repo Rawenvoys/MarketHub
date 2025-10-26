@@ -1,13 +1,13 @@
-using CurrencyRates.Clients.Nbp.Client.Extensions;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Factories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Strategies;
-using CurrencyRates.Microservices.Rates.Infrastructure.Factories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Extensions;
-using CurrencyRates.Microservices.Rates.Infrastructure.Strategies;
+using MarketHub.Clients.Nbp.Client.Extensions;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Factories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Strategies;
+using MarketHub.Microservices.Rates.Infrastructure.Factories;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Extensions;
+using MarketHub.Microservices.Rates.Infrastructure.Strategies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Extensions;
+namespace MarketHub.Microservices.Rates.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

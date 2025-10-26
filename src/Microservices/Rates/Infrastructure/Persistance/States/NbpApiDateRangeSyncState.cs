@@ -1,7 +1,7 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
+using MarketHub.Microservices.Rates.Domain.Interfaces.States;
 using Newtonsoft.Json;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.States;
 
 public class NbpApiDateRangeSyncState : ISyncState
 {
@@ -10,12 +10,12 @@ public class NbpApiDateRangeSyncState : ISyncState
 
     [JsonProperty(PropertyName = "archiveSynchronized")]
     public bool ArchiveSynchronized { get; set; }
-    
-    [JsonProperty(PropertyName = "nextSyncFrom")]
-    public DateOnly NextSyncFrom { get; set; }
 
-    [JsonProperty(PropertyName = "nextSyncTo")]
-    public DateOnly NextSyncTo { get; set; }
-    
+    [JsonProperty(PropertyName = "nextSyncAt")]
+    public DateOnly NextSyncAt { get; set; }
+
+    [JsonProperty(PropertyName = "createdAt")]
+    public DateOnly CreatedAt { get; set; }
+
 
 }

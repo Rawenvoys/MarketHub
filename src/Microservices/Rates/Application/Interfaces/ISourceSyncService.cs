@@ -1,6 +1,6 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
 
-namespace CurrencyRates.Microservices.Rates.Application.Interfaces;
+namespace MarketHub.Microservices.Rates.Application.Interfaces;
 
 public interface ISourceSyncService
 {

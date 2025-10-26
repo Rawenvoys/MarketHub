@@ -1,9 +1,9 @@
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.States;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.States;
+using MarketHub.Microservices.Rates.Domain.Interfaces.Repositories;
+using MarketHub.Microservices.Rates.Domain.Interfaces.States;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.States;
 using Microsoft.Extensions.Logging;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 
 public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<SyncStateSeeder> logger)
 {
@@ -13,7 +13,7 @@ public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<S
     //ToDo: Implement Merge or Upsert - reduce call to cosmos container to 1 per seed
     public async Task SeedAsync(CancellationToken cancellationToken = default)
     {
-        foreach(var syncStateSeed in SyncStateSeeds)
+        foreach (var syncStateSeed in SyncStateSeeds)
         {
             _logger.LogInformation("Start seeding sync state for SourceId: {SourceId}", syncStateSeed.SourceId);
 
@@ -30,8 +30,8 @@ public class SyncStateSeeder(ISyncStateRepository syncStateRepository, ILogger<S
         => new NbpApiDateRangeSyncState()
         {
             SourceId = Guid.Parse("d07ebbb0-ee4b-4d13-8ef7-8ef007ae77e3"),
-            NextSyncFrom = DateOnly.Parse("2002-01-02"),
-            NextSyncTo = DateOnly.FromDateTime(DateTime.UtcNow),
+            NextSyncAt = DateOnly.Parse("2002-01-02"),
+            CreatedAt = DateOnly.FromDateTime(DateTime.UtcNow),
             ArchiveSynchronized = false
         };
 

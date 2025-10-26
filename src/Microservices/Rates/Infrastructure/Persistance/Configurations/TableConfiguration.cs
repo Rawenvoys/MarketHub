@@ -1,9 +1,9 @@
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using TableType = CurrencyRates.Microservices.Rates.Domain.Enums.Table.Type;
+using MarketHub.Microservices.Rates.Domain.Aggregates;
+using TableType = MarketHub.Microservices.Rates.Domain.Enums.Table.Type;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Configurations;
+namespace MarketHub.Microservices.Rates.Infrastructure.Persistance.Configurations;
 
 public class TableConfiguration : IEntityTypeConfiguration<Table>
 {

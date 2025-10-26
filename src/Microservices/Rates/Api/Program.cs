@@ -1,13 +1,17 @@
-using CurrencyRates.Microservices.Rates.Application;
-using CurrencyRates.Microservices.Rates.Application.Interfaces;
-using CurrencyRates.Microservices.Rates.Application.Services;
-using CurrencyRates.Microservices.Rates.Domain.Aggregates;
-using CurrencyRates.Microservices.Rates.Domain.Interfaces.Repositories;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Contexts;
-using CurrencyRates.Microservices.Rates.Infrastructure.Persistance.Seeds;
+using MarketHub.Microservices.Rates.Application;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Contexts;
+using MarketHub.Microservices.Rates.Infrastructure.Persistance.Seeds;
 using Hangfire;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RB.SharedKernel.MediatR.Extensions;
+using GetLastTableQuery = MarketHub.Microservices.Rates.Application.Queries.GetLastTable.Query;
+using GetLatestRatesResult = MarketHub.Microservices.Rates.Application.Queries.GetLastTable.Result;
+using GetMetaQuery = MarketHub.Microservices.Rates.Application.Queries.GetMeta.Query;
+using GetMetaResult = MarketHub.Microservices.Rates.Application.Queries.GetMeta.Result;
+
+
 
 var app = App.Build(args);
 
@@ -17,26 +21,45 @@ ratesDbContext.Database.Migrate();
 var syncStateSeeder = scope.ServiceProvider.GetRequiredService<SyncStateSeeder>();
 await syncStateSeeder.SeedAsync();
 
+
+app.UseRouting();
+
 //ToDo: Move maps later...
-app.MapGet("/sources", GetActiveSourcesQuery())
-   .WithName("Get active sources")
-   .WithTags("Source")
+app.MapGet("/tables/last", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) =>
+{
+    var result = await _mediator.SendQueryAsync(new GetLastTableQuery());
+    if (result == null || result.Table == null)
+        return Results.NotFound();
+    return Results.Ok(result.Table);
+})
+   .Produces<GetLatestRatesResult>(StatusCodes.Status200OK, "application/json")
+   .Produces(StatusCodes.Status404NotFound)
+   .WithTags("Table")
    .WithOpenApi();
 
+
+app.MapGet("/meta", async ([FromServices] IMediator _mediator, [FromServices] ILogger<Program> _logger) =>
+{
+    var result = await _mediator.SendQueryAsync(new GetMetaQuery());
+    if (result == null || result.Meta == null)
+        return Results.NotFound();
+    return Results.Ok(result.Meta);
+})
+.Produces<GetMetaResult>(StatusCodes.Status200OK, "application/json")
+.Produces(StatusCodes.Status404NotFound)
+.WithTags("CurrencyRates")
+.WithOpenApi();
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     Authorization = []
 });
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rates API");
+});
 
 app.UseHttpsRedirection();
 app.Run();
-
-static Func<ISourceRepository, ILogger<Program>, Task<IEnumerable<Source>>> GetActiveSourcesQuery()
-    => async ([FromServices] _sourceRepository, [FromServices] _logger)
-        =>
-        {
-            _logger.LogInformation("Get active sources `/sources`");
-            return await _sourceRepository.GetActiveAsync();
-        };
