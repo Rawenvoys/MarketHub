@@ -19,6 +19,9 @@ public static class ServiceCollectionExtensions
             ?? throw new InvalidOperationException($"Cannot find connection string '{RatesDbContext.ConnectionStringName}'");
 
         services.AddDbContext<RatesDbContext>(options => options.UseSqlServer(connectionString));
+        // services.AddDbContext<RatesDbContext>(options
+        //     => options.UseSqlite($"Data Source={Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Rates.db")}"));
+
         services.AddScoped<ISourceRepository, SourceRepository>();
         services.AddScoped<ITableRepository, TableRepository>();
     }
