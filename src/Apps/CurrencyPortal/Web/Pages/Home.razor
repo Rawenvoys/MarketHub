@@ -1,32 +1,19 @@
 ﻿@page "/"
 @namespace MarketHub.Apps.CurrencyPortal.Web.Pages
-@using MarketHub.Clients.Nbp.Contracts.Dtos.ExchangeRates.Tables
 
+@using MarketHub.Clients.Rates.Contracts.Dtos.LatestCurrencyRates
 
 <PageTitle>Currency Portal</PageTitle>
-<div class="row">
-    <div class="col-2">
-    </div>
-    <div class="col-2">
 
-        @if (string.IsNullOrWhiteSpace(LoadingMessage))
-        {
-            <div class="text-center">
-                From: @FromDate.ToShortDateString()
-                To: @ToDate.ToShortDateString()
-                @foreach (var table in ExchangeRateTables)
-                {
-                    @($"{table.No} - {table.EffectiveDate}") <br />
-                }
-            </div>
-        }
-        else
-        {
-            <div class="text-center">
-                @LoadingMessage
-            </div>
-        }
-    </div>
+<div class="row">
+    <div class="col-2" />
     <div class="col-2">
+        <Grid TItem="CurrencyRateDto" AllowFiltering="true" AllowPaging="true" AllowSorting="true" AllowSelection="true"
+            Class="table table-hover table-bordered table-striped" PageSize="5" Responsive="true" Data="currencyRates">
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Name" PropertyName="Name"></GridColumn>
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Code" PropertyName="Code"></GridColumn>
+            <GridColumn TItem="CurrencyRateDto" HeaderText="Rate" PropertyName="Rate"></GridColumn>
+        </Grid>
     </div>
+    <div class="col-2" />
 </div>

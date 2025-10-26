@@ -1,20 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @namespace MarketHub.Apps.CurrencyPortal.Web.Layout
 
-<div class="bb-page">
-    <main>
-        <div class="bb-top-row px-4 d-flex justify-content-end">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            <div class="py-2">@Body</div>
-        </article>
-    </main>
-
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-</div>
+<BlazorBootstrapLayout>
+    <ContentSection>
+        @Body
+    </ContentSection>
+</BlazorBootstrapLayout>
