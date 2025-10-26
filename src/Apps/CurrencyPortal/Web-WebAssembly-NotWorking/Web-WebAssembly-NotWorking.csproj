@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AssemblyName>MarketHub.Apps.CurrencyPortal.Web</AssemblyName>
+        <RootNamespace>MarketHub.Apps.CurrencyPortal.Web</RootNamespace>
+        <UserSecretsId>6729cfc5-93f2-4f51-951f-e0a5fc186db8</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <Content Include="GlobalUsings.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Blazor.Bootstrap" Version="3.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.19" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.19" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.10" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="../../../Clients/Nbp/Client/Client.csproj" />
+        <ProjectReference Include="../../../Clients/Rates/Client/Client.csproj" />
+    </ItemGroup>
+</Project>
